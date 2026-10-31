@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creator Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f5f8; --card:#ffffff; --ink:#0f1220; --muted:#6b7084; --line:#e7e8ee; --soft:#f0f1f5;
+  --accent:#6d5efc; --accent-2:#a855f7; --yt:#ff2e4d; --tt:#00c2c7;
+  --ok:#16a34a; --ok-bg:#e7f8ee; --warn:#b45309; --warn-bg:#fff4dc; --bad:#dc2626; --bad-bg:#fdeaea;
+  --shadow:0 1px 2px rgba(16,18,32,.04),0 8px 24px rgba(16,18,32,.06);
+  --r:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b0c12; --card:#14161f; --ink:#eef0f6; --muted:#9097ab; --line:#232634; --soft:#1b1e2a;
+    --ok-bg:#10301f; --ok:#4ade80; --warn-bg:#33270f; --warn:#fbbf24; --bad-bg:#371518; --bad:#f87171;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3); }
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:var(--ink)}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 18px 120px}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:#fff;font-weight:800;font-size:18px;box-shadow:0 6px 18px rgba(109,94,252,.35)}
+.brand h1{font-size:19px;margin:0;font-weight:800;letter-spacing:-.02em}
+.brand .sub{font-size:12px;color:var(--muted);margin-top:2px}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:6px;box-shadow:0 0 0 3px var(--ok-bg);vertical-align:1px}
+.top-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px;box-shadow:var(--shadow)}
+.seg button{border:0;background:none;padding:8px 16px;border-radius:9px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--ink);color:var(--card)}
+.btn{border:0;border-radius:11px;padding:10px 16px;font-weight:700;background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(109,94,252,.3);display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.btn:hover{filter:brightness(1.07)}
+.btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.btn.danger{background:var(--bad);box-shadow:none}
+.btn:disabled{opacity:.55;cursor:default}
+.icon-btn{border:1px solid var(--line);background:var(--card);border-radius:11px;width:40px;height:40px;display:grid;place-items:center;color:var(--muted)}
+.icon-btn:hover{color:var(--ink)}
+.saving{font-size:12px;color:var(--muted);min-width:70px;text-align:right}
+
+.banner{display:none;padding:12px 16px;border-radius:12px;margin-bottom:16px;background:var(--warn-bg);color:var(--warn);font-weight:500}
+.banner.show{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.banner .btn{padding:7px 12px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:22px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow)}
+.stat .l{color:var(--muted);font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+.stat .v{font-size:28px;font-weight:800;margin-top:6px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat.hero{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:0}
+.stat.hero .l{color:rgba(255,255,255,.8)}
+.chip{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* creators grid */
+.section-h{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px;gap:10px;flex-wrap:wrap}
+.section-h h2{font-size:16px;margin:0;font-weight:800;letter-spacing:-.01em}
+.legend{display:flex;gap:14px;color:var(--muted);font-size:12px;font-weight:500}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.cc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .12s, box-shadow .12s;position:relative}
+.cc:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(16,18,32,.05),0 14px 30px rgba(16,18,32,.09)}
+.cc-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:16px;flex:none}
+.cc-name{font-weight:800;font-size:15px}
+.cc-sub{color:var(--muted);font-size:12px;margin-top:2px}
+.rankb{position:absolute;top:14px;right:14px;font-size:11px;font-weight:800;color:var(--muted);background:var(--soft);padding:3px 8px;border-radius:20px}
+.rankb.gold{background:#fff4cc;color:#a16207}
+.cc-total{font-size:26px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.cc-total small{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0;margin-left:4px}
+.split{height:8px;border-radius:5px;background:var(--soft);overflow:hidden;display:flex;margin:10px 0 12px}
+.split i{display:block;height:100%}
+.cc-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mini{background:var(--soft);border-radius:10px;padding:8px 10px}
+.mini .k{font-size:11px;color:var(--muted);font-weight:700;display:flex;align-items:center;gap:5px}
+.mini .n{font-weight:800;font-size:15px;margin-top:2px;font-variant-numeric:tabular-nums}
+.mini .p{font-size:11px;color:var(--muted);font-weight:500}
+.add-card{border:2px dashed var(--line);background:transparent;box-shadow:none;display:grid;place-items:center;color:var(--muted);font-weight:700;min-height:180px}
+.add-card:hover{color:var(--accent);border-color:var(--accent)}
+
+/* videos */
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 12px;min-width:200px}
+.sel{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 12px;font-weight:600}
+.vlist{display:flex;flex-direction:column;gap:10px}
+.vrow{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);display:grid;grid-template-columns:minmax(0,1fr) 160px 160px 112px;gap:14px;align-items:center}
+.vtitle{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vmeta{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.tag{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--ink)}
+.tag .av{width:20px;height:20px;font-size:10px}
+.plat{display:flex;align-items:center;gap:10px;min-width:0}
+.plat-ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none}
+.plat-ic.yt{background:rgba(255,46,77,.12);color:var(--yt)} .plat-ic.tt{background:rgba(0,194,199,.13);color:var(--tt)}
+.plat-v{font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
+.plat-v .auto{font-size:10px;font-weight:700;color:var(--ok);margin-left:4px;vertical-align:2px}
+.status{border:0;border-radius:20px;padding:3px 9px;font-size:11px;font-weight:700;margin-top:3px;appearance:none;-webkit-appearance:none}
+.status[data-v="Posted"]{background:var(--ok-bg);color:var(--ok)}
+.status[data-v="Scheduled"]{background:var(--warn-bg);color:var(--warn)}
+.status[data-v="Not Posted"]{background:var(--bad-bg);color:var(--bad)}
+select.status{cursor:pointer;padding-right:9px}
+select.status:disabled{cursor:default;opacity:1}
+.vact{display:flex;gap:6px;justify-content:flex-end}
+.vact a,.vact button{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--muted);text-decoration:none}
+.vact a:hover,.vact button:hover{color:var(--ink)}
+.empty{padding:50px 20px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:var(--r)}
+.empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+@media (max-width:760px){
+  .vrow{grid-template-columns:1fr 1fr;}
+  .vrow .vmain{grid-column:1/-1}
+  .vrow .vact{grid-column:1/-1;justify-content:flex-end}
+}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(10,11,20,.5);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.open{display:flex}
+.box{background:var(--card);border-radius:20px;padding:22px;width:100%;max-width:480px;box-shadow:0 30px 80px rgba(0,0,0,.25);max-height:92vh;overflow:auto}
+.box h3{margin:0 0 4px;font-size:18px;font-weight:800}
+.box .hint{color:var(--muted);margin:0 0 16px;line-height:1.5;font-size:13px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.field input:focus,.field select:focus,.field textarea:focus,.search:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.steps{margin:0 0 14px;padding-left:20px;color:var(--muted);line-height:1.7;font-size:13px}
+.steps b{color:var(--ink)}
+
+/* AI */
+.fab{position:fixed;right:22px;bottom:22px;z-index:40;border:0;border-radius:999px;padding:14px 20px 14px 16px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;display:flex;align-items:center;gap:9px;box-shadow:0 12px 30px rgba(109,94,252,.45)}
+.fab:hover{filter:brightness(1.08)}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--card);border-left:1px solid var(--line);z-index:45;display:flex;flex-direction:column;transform:translateX(105%);transition:transform .22s ease;box-shadow:-20px 0 60px rgba(0,0,0,.12)}
+.drawer.open{transform:none}
+.dh{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line)}
+.dh b{font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px}
+.msgs{flex:1;overflow:auto;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:10px 13px;border-radius:14px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+.msg.user{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:5px}
+.msg.ai{align-self:flex-start;background:var(--soft);border-bottom-left-radius:5px}
+.msg.act{align-self:flex-start;background:var(--ok-bg);color:var(--ok);font-size:12px;font-weight:700;padding:6px 11px;border-radius:20px}
+.msg.err{align-self:flex-start;background:var(--bad-bg);color:var(--bad);font-size:13px}
+.typing{align-self:flex-start;color:var(--muted);font-size:12px}
+.sugg{display:flex;flex-wrap:wrap;gap:6px;padding:0 18px 10px}
+.sugg button{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:6px 11px;font-size:12px;font-weight:600;color:var(--muted)}
+.sugg button:hover{color:var(--accent);border-color:var(--accent)}
+.composer{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.composer textarea{flex:1;resize:none;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:10px 12px;max-height:120px;min-height:44px}
+.composer textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.hidden{display:none !important}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--card);padding:10px 16px;border-radius:12px;font-weight:600;opacity:0;transition:.2s;z-index:60;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <div class="logo">CT</div>
+      <div><h1>Creator Tracker</h1><div class="sub" id="updated"><span class="live"></span>Loading…</div></div>
+    </div>
+    <div class="top-r">
+      <span class="saving" id="saving"></span>
+      <div class="seg"><button data-tab="dashboard" class="on">Dashboard</button><button data-tab="videos">Videos</button></div>
+      <button class="btn" id="addVideoTop">+ Add video</button>
+      <button class="icon-btn" id="settingsBtn" title="Settings" aria-label="Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="banner" id="banner"><span id="bannerText"></span><button class="btn" id="bannerBtn">Connect</button></div>
+
+  <section id="tab-dashboard">
+    <div class="stats" id="stats"></div>
+    <div class="section-h">
+      <h2>Creators</h2>
+      <div class="legend"><span><span class="chip" style="background:var(--yt)"></span> Shorts</span><span><span class="chip" style="background:var(--tt)"></span> TikTok</span></div>
+    </div>
+    <div class="grid" id="creatorGrid"></div>
+  </section>
+
+  <section id="tab-videos" class="hidden">
+    <div class="section-h">
+      <div class="toolbar">
+        <input class="search" id="q" placeholder="Search videos…">
+        <select class="sel" id="filterCreator"><option value="">All creators</option></select>
+        <select class="sel" id="filterStatus"><option value="">Any status</option><option value="notyet">Still to post</option><option value="done">Posted on both</option></select>
+      </div>
+    </div>
+    <div class="vlist" id="videoList"></div>
+  </section>
+</div>
+
+<button class="fab" id="fab"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9L12 2zm7 12l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9L19 14z"/></svg>Ask AI</button>
+
+<aside class="drawer" id="drawer">
+  <div class="dh"><b>✨ AI assistant</b><button class="icon-btn" id="closeDrawer" aria-label="Close">✕</button></div>
+  <div class="msgs" id="msgs"></div>
+  <div class="sugg" id="sugg"></div>
+  <form class="composer" id="composer">
+    <textarea id="prompt" rows="1" placeholder="e.g. Yug posted a short today: youtube.com/shorts/…"></textarea>
+    <button class="btn" type="submit" id="sendBtn">Send</button>
+  </form>
+</aside>
+
+<!-- video modal -->
+<div class="modal" id="videoModal"><div class="box">
+  <h3 id="vmTitle">Add video</h3>
+  <p class="hint">Paste a YouTube or TikTok link and its views update automatically.</p>
+  <form id="videoForm">
+    <div class="field"><label>Creator</label><select id="vCreator" required></select></div>
+    <div class="field"><label>Title</label><input id="vTitle" required maxlength="200" placeholder="What's the video?"></div>
+    <div class="field"><label>YouTube Shorts link</label><input id="vYt" placeholder="https://youtube.com/shorts/…"></div>
+    <div class="field"><label>TikTok link</label><input id="vTt" placeholder="https://www.tiktok.com/@…/video/…"></div>
+    <div class="two">
+      <div class="field"><label>Shorts status</label><select id="vYs"></select></div>
+      <div class="field"><label>TikTok status</label><select id="vTs"></select></div>
+    </div>
+    <div class="two">
+      <div class="field"><label>Shorts views <span style="font-weight:500">(if no link)</span></label><input id="vYv" type="number" min="0" placeholder="auto"></div>
+      <div class="field"><label>TikTok views <span style="font-weight:500">(if not auto)</span></label><input id="vTv" type="number" min="0" placeholder="auto"></div>
+    </div>
+    <div class="field"><label>Notes</label><input id="vNotes" maxlength="300"></div>
+    <div class="actions">
+      <button type="button" class="btn danger hidden" id="vDelete" style="margin-right:auto">Delete</button>
+      <button type="button" class="btn ghost" data-close>Cancel</button>
+      <button type="submit" class="btn">Save</button>
+    </div>
+  </form>
+</div></div>
+
+<!-- creator modal -->
+<div class="modal" id="creatorModal"><div class="box">
+  <h3>Add creator</h3>
+  <form id="creatorForm">
+    <div class="field"><label>Name</label><input id="cName" required maxlength="60"></div>
+    <div class="actions"><button type="button" class="btn ghost" data-close>Cancel</button><button class="btn" type="submit">Add</button></div>
+  </form>
+</div></div>
+
+<!-- confirm -->
+<div class="modal" id="confirmModal"><div class="box">
+  <h3 id="confirmText" style="font-size:16px"></h3>
+  <div class="actions"><button class="btn ghost" data-close>Cancel</button><button class="btn danger" id="cYes">Delete</button></div>
+</div></div>
+
+<!-- settings / connect -->
+<div class="modal" id="settingsModal"><div class="box">
+  <h3>Connect to edit</h3>
+  <p class="hint">Saving changes and the AI assistant both use a GitHub token. You only do this once per browser, and the token is stored only in this browser.</p>
+  <ol class="steps">
+    <li>Open <a id="tokenLink" target="_blank" rel="noopener"><b>this GitHub page</b></a></li>
+    <li>Repository access: <b>Only select repositories → this repo</b></li>
+    <li>Permissions: <b>Contents → Read and write</b> and <b>Models → Read-only</b> (for the AI)</li>
+    <li>Click <b>Generate token</b>, copy it, and paste it here</li>
+  </ol>
+  <div class="field"><label>GitHub token</label><input id="tokenInput" placeholder="github_pat_…" autocomplete="off"></div>
+  <details style="margin-top:6px">
+    <summary style="cursor:pointer;font-weight:700;font-size:13px;color:var(--muted)">AI settings (optional)</summary>
+    <div style="margin-top:10px">
+      <div class="field"><label>AI provider</label>
+        <select id="aiProvider"><option value="github">GitHub Models (free, uses your GitHub token)</option><option value="anthropic">Claude (your Anthropic API key)</option></select></div>
+      <div class="field" id="anthKeyField"><label>Anthropic API key</label><input id="anthKey" placeholder="sk-ant-…" autocomplete="off"></div>
+    </div>
+  </details>
+  <div class="actions">
+    <button type="button" class="btn ghost" id="signOut" style="margin-right:auto">Disconnect</button>
+    <button type="button" class="btn ghost" data-close>Cancel</button>
+    <button type="button" class="btn" id="saveSettings">Save</button>
+  </div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= config ================= */
+const OVERRIDE_REPO = ""; // "owner/repo" if served from a custom domain
+const REPO = OVERRIDE_REPO || (() => {
+  const owner = location.hostname.split(".")[0];
+  const repo = location.pathname.split("/").filter(Boolean)[0] || `${owner}.github.io`;
+  return `${owner}/${repo}`;
+})();
+const API = `https://api.github.com/repos/${REPO}`;
+const STATUSES = ["Not Posted","Scheduled","Posted"];
+const PALETTE = ["#6d5efc","#ff2e4d","#00a6ab","#f59e0b","#10b981","#ec4899","#3b82f6","#8b5cf6","#ef4444","#14b8a6"];
+
+const LS = { get(k){ try { return localStorage.getItem(k+":"+REPO); } catch { return null; } },
+             set(k,v){ try { v==null ? localStorage.removeItem(k+":"+REPO) : localStorage.setItem(k+":"+REPO, v); } catch {} } };
+let token = LS.get("ct_token");
+let aiProvider = LS.get("ct_ai") || "github";
+let anthKey = LS.get("ct_anth");
+
+let data = {creators:[], videos:[]};
+let stats = {videos:{}};
+
+/* ================= helpers ================= */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num = v => { const n = Number(v); return isFinite(n) && n > 0 ? Math.round(n) : 0; };
+const fmt = n => n >= 1e6 ? (n/1e6).toFixed(n>=1e7?1:2).replace(/\.?0+$/,"")+"M" : n >= 1e4 ? (n/1e3).toFixed(1).replace(/\.0$/,"")+"K" : Math.round(n).toLocaleString("en-US");
+const safeUrl = u => /^https:\/\/([a-z0-9-]+\.)*(youtube\.com|youtu\.be|tiktok\.com)\//i.test(u||"") ? u : "";
+const normUrl = u => { u = String(u||"").trim(); if (u && !/^https?:\/\//i.test(u)) u = "https://"+u; return u; };
+const colorFor = name => { let h=0; for (const c of String(name)) h=(h*31+c.charCodeAt(0))>>>0; return PALETTE[h%PALETTE.length]; };
+const initials = n => String(n).trim().slice(0,1).toUpperCase() || "?";
+const ago = t => { const s=Math.max(0,Date.now()/1000-t); return s<90?"just now":s<3600?Math.round(s/60)+" min ago":s<86400?Math.round(s/3600)+"h ago":Math.round(s/86400)+"d ago"; };
+const uid = () => "v"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+function toast(t){ const el=$("toast"); el.textContent=t; el.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(()=>el.classList.remove("show"),2200); }
+const b64dec = b => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\s/g,"")), c => c.charCodeAt(0)));
+const b64enc = s => { const by=new TextEncoder().encode(s); let bin=""; for (let i=0;i<by.length;i+=0x8000) bin+=String.fromCharCode(...by.subarray(i,i+0x8000)); return btoa(bin); };
+const gh = (path, opts={}) => fetch(path.startsWith("http")?path:API+path, {...opts, cache:"no-store", headers:{Accept:"application/vnd.github+json", ...(token?{Authorization:`Bearer ${token}`}:{}), ...(opts.headers||{})}});
+
+function views(v){
+  const s = stats.videos?.[v.id] || {};
+  return {
+    yt: s.yt && typeof s.yt.views==="number" ? {n:s.yt.views, auto:true} : {n:num(v.ytViews), auto:false},
+    tt: s.tt && typeof s.tt.views==="number" ? {n:s.tt.views, auto:true} : {n:num(v.ttViews), auto:false},
+  };
+}
+
+/* ================= load ================= */
+async function loadData(){
+  if (token){
+    const r = await gh(`/contents/data.json?ref=main&t=${Date.now()}`).catch(()=>null);
+    if (r && r.ok){ const j=await r.json(); return JSON.parse(b64dec(j.content)); }
+    if (r && r.status===401){ token=null; LS.set("ct_token",null); }
+  }
+  const r = await fetch(`data.json?t=${Date.now()}`, {cache:"no-store"});
+  return await r.json();
+}
+async function loadStats(){
+  try { const r = await fetch(`https://raw.githubusercontent.com/${REPO}/data/stats.json?t=${Date.now()}`, {cache:"no-store"}); if (r.ok) return await r.json(); } catch {}
+  try { const r = await gh(`/contents/stats.json?ref=data`, {headers:{Accept:"application/vnd.github.raw+json"}}); if (r.ok) return await r.json(); } catch {}
+  return null;
+}
+async function refreshStats(){
+  const s = await loadStats(); if (s) stats = s;
+  $("updated").innerHTML = `<span class="live"></span>` + (stats.updatedAt ? `Views updated ${ago(stats.updatedAt)}` : `Views start updating a few minutes after setup`);
+  render();
+}
+
+/* ================= save queue ================= */
+let queue=[], saving=false, saveTimer=null;
+function change(fn){
+  if (!token){ openSettings(); return false; }
+  fn(data); render();
+  queue.push(fn); $("saving").textContent="Saving…";
+  clearTimeout(saveTimer); saveTimer=setTimeout(flush, 500);
+  return true;
+}
+async function flush(){
+  if (saving || !queue.length) return;
+  saving=true; const ops=queue.splice(0);
+  try{
+    for (let attempt=0; attempt<4; attempt++){
+      const r = await gh(`/contents/data.json?ref=main&t=${Date.now()}`);
+      if (!r.ok) throw new Error(r.status===401||r.status===403||r.status===404?"auth":"net");
+      const j = await r.json(), latest = JSON.parse(b64dec(j.content));
+      ops.forEach(fn => fn(latest));
+      const put = await gh(`/contents/data.json`, {method:"PUT", body: JSON.stringify({message:"Update tracker", content:b64enc(JSON.stringify(latest,null,2)+"\n"), sha:j.sha, branch:"main"})});
+      if (put.status===409 || put.status===422) { await new Promise(r=>setTimeout(r,400)); continue; }
+      if (!put.ok) throw new Error(put.status===401||put.status===403?"auth":"net");
+      queue.forEach(fn => fn(latest)); data=latest; render();
+      $("saving").textContent="Saved ✓"; setTimeout(()=>{ if($("saving").textContent==="Saved ✓") $("saving").textContent=""; },2000);
+      saving=false; if (queue.length) flush(); return;
+    }
+    throw new Error("net");
+  } catch(e){
+    queue = ops.concat(queue); saving=false; $("saving").textContent="Not saved";
+    if (e.message==="auth"){ showBanner("GitHub didn't accept the save. Check your token has Contents: Read and write on this repo.", "Fix"); }
+    else setTimeout(flush, 4000);
+    return;
+  }
+}
+window.addEventListener("beforeunload", e => { if (queue.length||saving){ e.preventDefault(); e.returnValue=""; } });
+
+/* ================= render ================= */
+function creatorStats(){
+  const map = new Map((data.creators||[]).map(n => [n,{name:n,listed:true,videos:0,ytPosted:0,ttPosted:0,ytViews:0,ttViews:0}]));
+  for (const v of data.videos||[]){
+    if (!map.has(v.creator)) map.set(v.creator,{name:v.creator,listed:false,videos:0,ytPosted:0,ttPosted:0,ytViews:0,ttViews:0});
+    const s=map.get(v.creator), w=views(v);
+    s.videos++; if (v.ytStatus==="Posted") s.ytPosted++; if (v.ttStatus==="Posted") s.ttPosted++;
+    s.ytViews+=w.yt.n; s.ttViews+=w.tt.n;
+  }
+  return [...map.values()].map(s=>({...s,total:s.ytViews+s.ttViews,avg:s.videos?(s.ytViews+s.ttViews)/s.videos:0})).sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name));
+}
+const ytIcon = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg>`;
+const ttIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.6a2.9 2.9 0 1 1-2-2.7V9.4a6.3 6.3 0 1 0 5.4 6.2V8.7a8.2 8.2 0 0 0 3.8 1V6.7z"/></svg>`;
+
+function renderDashboard(){
+  const st=creatorStats(), vids=data.videos||[];
+  const yt=st.reduce((a,s)=>a+s.ytViews,0), tt=st.reduce((a,s)=>a+s.ttViews,0);
+  const toPost = vids.filter(v=>v.ytStatus!=="Posted"||v.ttStatus!=="Posted").length;
+  $("stats").innerHTML = `
+    <div class="stat hero"><div class="l">Total views</div><div class="v">${fmt(yt+tt)}</div></div>
+    <div class="stat"><div class="l"><span class="chip" style="background:var(--yt)"></span>Shorts views</div><div class="v">${fmt(yt)}</div></div>
+    <div class="stat"><div class="l"><span class="chip" style="background:var(--tt)"></span>TikTok views</div><div class="v">${fmt(tt)}</div></div>
+    <div class="stat"><div class="l">Videos</div><div class="v">${vids.length}</div></div>
+    <div class="stat"><div class="l">Still to post</div><div class="v" style="color:${toPost?'var(--bad)':'inherit'}">${toPost}</div></div>`;
+  $("creatorGrid").innerHTML = st.map((s,i)=>`
+    <div class="cc" data-creator="${esc(s.name)}">
+      <span class="rankb ${i===0&&s.total?'gold':''}">#${i+1}</span>
+      <div class="cc-h"><div class="av" style="background:${colorFor(s.name)}">${esc(initials(s.name))}</div>
+        <div><div class="cc-name">${esc(s.name)}</div><div class="cc-sub">${s.videos} video${s.videos===1?"":"s"} · avg ${fmt(s.avg)}</div></div></div>
+      <div class="cc-total">${fmt(s.total)}<small>views</small></div>
+      <div class="split">${s.total?`<i style="width:${s.ytViews/s.total*100}%;background:var(--yt)"></i><i style="flex:1;background:var(--tt)"></i>`:""}</div>
+      <div class="cc-row">
+        <div class="mini"><div class="k" style="color:var(--yt)">${ytIcon} Shorts</div><div class="n">${fmt(s.ytViews)}</div><div class="p">${s.ytPosted}/${s.videos} posted</div></div>
+        <div class="mini"><div class="k" style="color:var(--tt)">${ttIcon} TikTok</div><div class="n">${fmt(s.ttViews)}</div><div class="p">${s.ttPosted}/${s.videos} posted</div></div>
+      </div>
+    </div>`).join("") + `<button class="cc add-card" id="addCreatorCard">+ Add creator</button>`;
+}
+function renderSelects(){
+  const opts=(data.creators||[]).map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join("");
+  const f=$("filterCreator"), c=f.value; f.innerHTML=`<option value="">All creators</option>`+opts; f.value=c;
+}
+function statusSel(v,f){
+  const val=v[f]||"Not Posted";
+  return `<select class="status" data-id="${esc(v.id)}" data-f="${f}" data-v="${esc(val)}" ${token?"":"disabled"}>${STATUSES.map(s=>`<option ${s===val?"selected":""}>${s}</option>`).join("")}</select>`;
+}
+function renderVideos(){
+  const q=$("q").value.trim().toLowerCase(), fc=$("filterCreator").value, fs=$("filterStatus").value;
+  let list=(data.videos||[]).filter(v=>(!fc||v.creator===fc)&&(!q||(v.title+" "+v.creator+" "+(v.notes||"")).toLowerCase().includes(q)));
+  if (fs==="notyet") list=list.filter(v=>v.ytStatus!=="Posted"||v.ttStatus!=="Posted");
+  if (fs==="done") list=list.filter(v=>v.ytStatus==="Posted"&&v.ttStatus==="Posted");
+  list=list.slice().sort((a,b)=>String(b.addedAt).localeCompare(String(a.addedAt)));
+  if (!list.length){ $("videoList").innerHTML = `<div class="empty"><b>${(data.videos||[]).length?"Nothing matches":"No videos yet"}</b>${(data.videos||[]).length?"Try a different filter.":"Click “+ Add video” or ask the AI."}</div>`; return; }
+  $("videoList").innerHTML = list.map(v=>{ const w=views(v), yt=safeUrl(v.youtube), tt=safeUrl(v.tiktok); return `
+    <div class="vrow">
+      <div class="vmain" style="min-width:0">
+        <div class="vtitle" title="${esc(v.title)}">${esc(v.title)}</div>
+        <div class="vmeta"><span class="tag"><span class="av" style="background:${colorFor(v.creator)}">${esc(initials(v.creator))}</span>${esc(v.creator)}</span>${v.notes?`<span>· ${esc(v.notes)}</span>`:""}</div>
+      </div>
+      <div class="plat"><div class="plat-ic yt">${ytIcon}</div><div><div class="plat-v">${w.yt.n||w.yt.auto?fmt(w.yt.n):"—"}${w.yt.auto?'<span class="auto">● LIVE</span>':""}</div>${statusSel(v,"ytStatus")}</div></div>
+      <div class="plat"><div class="plat-ic tt">${ttIcon}</div><div><div class="plat-v">${w.tt.n||w.tt.auto?fmt(w.tt.n):"—"}${w.tt.auto?'<span class="auto">● LIVE</span>':""}</div>${statusSel(v,"ttStatus")}</div></div>
+      <div class="vact">
+        ${yt?`<a href="${esc(yt)}" target="_blank" rel="noopener" title="Open on YouTube" style="color:var(--yt)">${ytIcon}</a>`:""}
+        ${tt?`<a href="${esc(tt)}" target="_blank" rel="noopener" title="Open on TikTok">${ttIcon}</a>`:""}
+        <button data-edit="${esc(v.id)}" title="Edit">✎</button>
+      </div>
+    </div>`; }).join("");
+}
+function render(){ renderSelects(); renderDashboard(); renderVideos(); }
+
+/* ================= UI wiring ================= */
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+function showTab(t){
+  document.querySelectorAll(".seg button").forEach(b=>b.classList.toggle("on",b.dataset.tab===t));
+  $("tab-dashboard").classList.toggle("hidden",t!=="dashboard"); $("tab-videos").classList.toggle("hidden",t!=="videos");
+  history.replaceState(null,"","#"+t);
+}
+if (location.hash==="#videos") showTab("videos");
+["q","filterCreator","filterStatus"].forEach(id=>$(id).addEventListener("input",renderVideos));
+document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>b.closest(".modal").classList.remove("open"));
+document.querySelectorAll(".modal").forEach(m=>m.addEventListener("mousedown",e=>{ if(e.target===m) m.classList.remove("open"); }));
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ document.querySelectorAll(".modal.open").forEach(m=>m.classList.remove("open")); } });
+
+$("creatorGrid").addEventListener("click", e=>{
+  if (e.target.closest("#addCreatorCard")){ if(!token) return openSettings(); $("cName").value=""; $("creatorModal").classList.add("open"); setTimeout(()=>$("cName").focus(),50); return; }
+  const c=e.target.closest(".cc[data-creator]"); if (c){ $("filterCreator").value=c.dataset.creator; showTab("videos"); renderVideos(); }
+});
+$("creatorForm").onsubmit = e => { e.preventDefault(); const n=$("cName").value.trim(); if(!n) return;
+  change(d=>{ if(!d.creators.some(c=>c.toLowerCase()===n.toLowerCase())) d.creators.push(n); }); $("creatorModal").classList.remove("open"); toast(`Added ${n}`); };
+
+$("videoList").addEventListener("change", e=>{ const t=e.target; if(!t.matches("select.status")) return;
+  const id=t.dataset.id, f=t.dataset.f, val=t.value; t.dataset.v=val; change(d=>{ const v=d.videos.find(x=>x.id===id); if(v) v[f]=val; }); });
+$("videoList").addEventListener("click", e=>{ const b=e.target.closest("[data-edit]"); if(b) openVideo(b.dataset.edit); });
+
+let editingId=null;
+["vYs","vTs"].forEach(id=>$(id).innerHTML=STATUSES.map(s=>`<option>${s}</option>`).join(""));
+function openVideo(id){
+  if (!token) return openSettings();
+  editingId=id||null; const v=id?data.videos.find(x=>x.id===id):null;
+  $("vmTitle").textContent = v?"Edit video":"Add video";
+  $("vCreator").innerHTML=(data.creators||[]).map(n=>`<option>${esc(n)}</option>`).join("") || `<option value="">Add a creator first</option>`;
+  if (v && !data.creators.includes(v.creator)) $("vCreator").insertAdjacentHTML("beforeend",`<option>${esc(v.creator)}</option>`);
+  $("vCreator").value = v?v.creator:($("filterCreator").value||data.creators[0]||"");
+  $("vTitle").value=v?.title||""; $("vYt").value=v?.youtube||""; $("vTt").value=v?.tiktok||"";
+  $("vYs").value=v?.ytStatus||"Not Posted"; $("vTs").value=v?.ttStatus||"Not Posted";
+  $("vYv").value=v&&num(v.ytViews)?v.ytViews:""; $("vTv").value=v&&num(v.ttViews)?v.ttViews:""; $("vNotes").value=v?.notes||"";
+  $("vDelete").classList.toggle("hidden",!v);
+  $("videoModal").classList.add("open"); setTimeout(()=>$(v?"vTitle":"vTitle").focus(),50);
+}
+$("vYt").addEventListener("change",()=>{ if($("vYt").value.trim() && $("vYs").value==="Not Posted") $("vYs").value="Posted"; });
+$("vTt").addEventListener("change",()=>{ if($("vTt").value.trim() && $("vTs").value==="Not Posted") $("vTs").value="Posted"; });
+$("addVideoTop").onclick=()=>openVideo(null);
+$("videoForm").onsubmit = e => { e.preventDefault();
+  const fields={creator:$("vCreator").value, title:$("vTitle").value.trim(), youtube:normUrl($("vYt").value), tiktok:normUrl($("vTt").value),
+    ytStatus:$("vYs").value, ttStatus:$("vTs").value, ytViews:num($("vYv").value), ttViews:num($("vTv").value), notes:$("vNotes").value.trim()};
+  if (!fields.creator||!fields.title) return;
+  if (editingId){ const id=editingId; change(d=>{ const v=d.videos.find(x=>x.id===id); if(v) Object.assign(v,fields); }); toast("Saved"); }
+  else { const v={id:uid(), ...fields, addedAt:new Date().toISOString()}; change(d=>{ if(!d.videos.some(x=>x.id===v.id)) d.videos.push({...v}); }); toast("Video added"); }
+  $("videoModal").classList.remove("open");
+};
+let confirmCb=null;
+function confirmBox(t,cb){ $("confirmText").textContent=t; confirmCb=cb; $("confirmModal").classList.add("open"); }
+$("cYes").onclick=()=>{ $("confirmModal").classList.remove("open"); confirmCb&&confirmCb(); };
+$("vDelete").onclick=()=>{ const id=editingId, v=data.videos.find(x=>x.id===id); $("videoModal").classList.remove("open");
+  confirmBox(`Delete “${v?.title}”?`, ()=>{ change(d=>{ d.videos=d.videos.filter(x=>x.id!==id); }); toast("Deleted"); }); };
+
+/* ================= settings / connect ================= */
+const [OWNER] = REPO.split("/");
+$("tokenLink").href = `https://github.com/settings/personal-access-tokens/new?name=${encodeURIComponent("Creator Tracker")}&description=${encodeURIComponent("Edit + AI for "+REPO)}&target_name=${encodeURIComponent(OWNER)}&contents=write&models=read&expires_in=none`;
+function openSettings(){
+  $("tokenInput").value = token ? "••••••••  (connected)" : "";
+  $("aiProvider").value = aiProvider; $("anthKey").value = anthKey ? "••••••••" : "";
+  $("anthKeyField").classList.toggle("hidden", aiProvider!=="anthropic");
+  $("signOut").classList.toggle("hidden", !token);
+  $("settingsModal").classList.add("open");
+}
+$("aiProvider").onchange=()=>$("anthKeyField").classList.toggle("hidden",$("aiProvider").value!=="anthropic");
+$("settingsBtn").onclick=openSettings; $("bannerBtn").onclick=openSettings;
+$("signOut").onclick=()=>{ token=null; LS.set("ct_token",null); $("settingsModal").classList.remove("open"); updateBanner(); render(); toast("Disconnected"); };
+$("saveSettings").onclick = async ()=>{
+  const t=$("tokenInput").value.trim(), ak=$("anthKey").value.trim();
+  aiProvider=$("aiProvider").value; LS.set("ct_ai",aiProvider);
+  if (ak && !ak.startsWith("•")){ anthKey=ak; LS.set("ct_anth",ak); }
+  if (t && !t.startsWith("•")){
+    $("saveSettings").disabled=true;
+    const r = await fetch(API,{headers:{Authorization:`Bearer ${t}`,Accept:"application/vnd.github+json"}}).catch(()=>null);
+    $("saveSettings").disabled=false;
+    if (!r||!r.ok){ toast("That token can't open this repo"); return; }
+    const j=await r.json(); if (j.permissions && !j.permissions.push){ toast("Token needs Contents: Read and write"); return; }
+    token=t; LS.set("ct_token",t);
+    try { data = await loadData(); } catch {}
+  }
+  $("settingsModal").classList.remove("open"); updateBanner(); render(); if(token) toast("Connected ✓");
+};
+function showBanner(text, btn){ $("bannerText").textContent=text; $("bannerBtn").textContent=btn||"Connect"; $("banner").classList.add("show"); }
+function updateBanner(){ if(!token) showBanner("You're in view-only mode. Connect your GitHub once to add videos and use the AI.","Connect"); else $("banner").classList.remove("show"); }
+
+/* ================= AI assistant ================= */
+const chat = []; // provider-neutral: {role:"user"|"assistant", content, tool_calls?} / {role:"tool", id, content}
+const TOOLS = [
+  {name:"add_creator", description:"Add a new creator to the tracker.", parameters:{type:"object",properties:{name:{type:"string"}},required:["name"]}},
+  {name:"remove_creator", description:"Remove a creator from the creator list (their videos stay).", parameters:{type:"object",properties:{name:{type:"string"}},required:["name"]}},
+  {name:"add_video", description:"Add a video. If a YouTube link is given and no status was said, ytStatus defaults to Posted; same for TikTok.", parameters:{type:"object",properties:{
+    creator:{type:"string"}, title:{type:"string"}, youtube:{type:"string",description:"YouTube Shorts URL"}, tiktok:{type:"string",description:"TikTok URL"},
+    ytStatus:{type:"string",enum:STATUSES}, ttStatus:{type:"string",enum:STATUSES}, ytViews:{type:"integer"}, ttViews:{type:"integer"}, notes:{type:"string"}},required:["creator","title"]}},
+  {name:"update_video", description:"Change fields on an existing video, by its id.", parameters:{type:"object",properties:{
+    id:{type:"string"}, creator:{type:"string"}, title:{type:"string"}, youtube:{type:"string"}, tiktok:{type:"string"},
+    ytStatus:{type:"string",enum:STATUSES}, ttStatus:{type:"string",enum:STATUSES}, ytViews:{type:"integer",description:"manual Shorts views, only used if there's no auto count"}, ttViews:{type:"integer",description:"manual TikTok views, only used if there's no auto count"}, notes:{type:"string"}},required:["id"]}},
+  {name:"delete_video", description:"Delete a video by id. Only when the user clearly asks to delete.", parameters:{type:"object",properties:{id:{type:"string"}},required:["id"]}},
+];
+function systemPrompt(){
+  const vids=(data.videos||[]).map(v=>{ const w=views(v); return {id:v.id, creator:v.creator, title:v.title, youtube:v.youtube||"", tiktok:v.tiktok||"", ytStatus:v.ytStatus, ttStatus:v.ttStatus, shortsViews:w.yt.n, shortsViewsAuto:w.yt.auto, tiktokViews:w.tt.n, tiktokViewsAuto:w.tt.auto, notes:v.notes||"", addedAt:v.addedAt}; });
+  return `You are the assistant inside a creator video tracker for a team that pays creators to make short videos and posts them to YouTube Shorts and TikTok.
+Today is ${new Date().toDateString()}.
+You can change the tracker with tools. Statuses are exactly: "Not Posted", "Scheduled", "Posted".
+Rules:
+- Match creator names case-insensitively to existing creators and use the existing spelling. If a creator doesn't exist, call add_creator first.
+- If the user gives a link but no title, use a short sensible title like "<Creator> short <n>" — the user can rename later.
+- Views with a link update automatically; only set ytViews/ttViews when the user gives a number for a video with no auto count.
+- To change an existing video, find it by creator/title/link in the data and use its id. If it's ambiguous, ask.
+- You can also answer questions about performance using the data (views, who's top, what's not posted yet).
+- Keep replies short and friendly, 1–3 sentences. No markdown tables.
+Creators: ${JSON.stringify(data.creators||[])}
+Videos: ${JSON.stringify(vids)}`;
+}
+function runTool(name, a){
+  a = a || {};
+  const findCreator = n => (data.creators||[]).find(c=>c.toLowerCase()===String(n||"").trim().toLowerCase());
+  const clean = o => { const f={}; for (const k of ["creator","title","youtube","tiktok","ytStatus","ttStatus","ytViews","ttViews","notes"]) if (o[k]!==undefined && o[k]!==null) f[k]=o[k];
+    if (f.youtube!==undefined) f.youtube=normUrl(f.youtube); if (f.tiktok!==undefined) f.tiktok=normUrl(f.tiktok);
+    for (const k of ["ytStatus","ttStatus"]) if (f[k]!==undefined && !STATUSES.includes(f[k])) delete f[k];
+    for (const k of ["ytViews","ttViews"]) if (f[k]!==undefined) f[k]=num(f[k]);
+    if (f.creator) f.creator = findCreator(f.creator) || String(f.creator).trim();
+    return f; };
+  if (name==="add_creator"){ const n=String(a.name||"").trim(); if(!n) return "error: no name"; if (findCreator(n)) return `${findCreator(n)} already exists`;
+    change(d=>{ if(!d.creators.some(c=>c.toLowerCase()===n.toLowerCase())) d.creators.push(n); }); actNote(`Added creator ${n}`); return `added creator ${n}`; }
+  if (name==="remove_creator"){ const n=findCreator(a.name); if(!n) return "error: no such creator"; change(d=>{ d.creators=d.creators.filter(c=>c!==n); }); actNote(`Removed creator ${n}`); return `removed ${n}`; }
+  if (name==="add_video"){ const f=clean(a); if(!f.creator||!f.title) return "error: need creator and title";
+    if (!findCreator(f.creator)) change(d=>{ if(!d.creators.some(c=>c.toLowerCase()===f.creator.toLowerCase())) d.creators.push(f.creator); });
+    const v={id:uid(), creator:f.creator, title:f.title, youtube:f.youtube||"", tiktok:f.tiktok||"",
+      ytStatus:f.ytStatus||(f.youtube?"Posted":"Not Posted"), ttStatus:f.ttStatus||(f.tiktok?"Posted":"Not Posted"),
+      ytViews:f.ytViews||0, ttViews:f.ttViews||0, notes:f.notes||"", addedAt:new Date().toISOString()};
+    change(d=>{ if(!d.videos.some(x=>x.id===v.id)) d.videos.push({...v}); }); actNote(`Added “${v.title}” for ${v.creator}`); return `added video id ${v.id}`; }
+  if (name==="update_video"){ const v=(data.videos||[]).find(x=>x.id===a.id); if(!v) return "error: no video with that id"; const f=clean(a);
+    change(d=>{ const x=d.videos.find(y=>y.id===a.id); if(x) Object.assign(x,f); }); actNote(`Updated “${f.title||v.title}”`); return "updated"; }
+  if (name==="delete_video"){ const v=(data.videos||[]).find(x=>x.id===a.id); if(!v) return "error: no video with that id";
+    change(d=>{ d.videos=d.videos.filter(x=>x.id!==a.id); }); actNote(`Deleted “${v.title}”`); return "deleted"; }
+  return "error: unknown tool";
+}
+
+async function callGitHubModels(){
+  const messages=[{role:"system",content:systemPrompt()}, ...chat.map(m=> m.role==="tool" ? {role:"tool",tool_call_id:m.id,content:m.content}
+    : m.tool_calls ? {role:"assistant",content:m.content||"",tool_calls:m.tool_calls.map(t=>({id:t.id,type:"function",function:{name:t.name,arguments:JSON.stringify(t.args)}}))}
+    : {role:m.role,content:m.content})];
+  const r = await fetch("https://models.github.ai/inference/chat/completions",{method:"POST",headers:{Authorization:`Bearer ${token}`,"Content-Type":"application/json",Accept:"application/json"},
+    body:JSON.stringify({model:"openai/gpt-4.1-mini",messages,tools:TOOLS.map(t=>({type:"function",function:t})),temperature:0.2})});
+  if (!r.ok){ const t=await r.text().catch(()=> ""); throw new Error(r.status===401||r.status===403?"GitHub Models said no — make sure your token has Models: Read-only permission (Settings ⚙).":`AI error ${r.status}. ${t.slice(0,140)}`); }
+  const j=await r.json(), m=j.choices?.[0]?.message||{};
+  return {text:m.content||"", calls:(m.tool_calls||[]).map(t=>{ let args={}; try{ args=JSON.parse(t.function.arguments||"{}"); }catch{} return {id:t.id,name:t.function.name,args}; })};
+}
+async function callAnthropic(){
+  const msgs=[]; for (const m of chat){
+    if (m.role==="tool"){ const last=msgs[msgs.length-1]; const block={type:"tool_result",tool_use_id:m.id,content:m.content};
+      if (last && last.role==="user" && Array.isArray(last.content) && last.content[0]?.type==="tool_result") last.content.push(block); else msgs.push({role:"user",content:[block]}); }
+    else if (m.tool_calls) msgs.push({role:"assistant",content:[...(m.content?[{type:"text",text:m.content}]:[]), ...m.tool_calls.map(t=>({type:"tool_use",id:t.id,name:t.name,input:t.args}))]});
+    else msgs.push({role:m.role,content:m.content});
+  }
+  const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"x-api-key":anthKey,"anthropic-version":"2023-06-01","content-type":"application/json","anthropic-dangerous-direct-browser-access":"true"},
+    body:JSON.stringify({model:"claude-haiku-5-5",max_tokens:1024,system:systemPrompt(),messages:msgs,tools:TOOLS.map(t=>({name:t.name,description:t.description,input_schema:t.parameters}))})});
+  if (!r.ok){ const t=await r.text().catch(()=> ""); throw new Error(`Claude error ${r.status}. ${t.slice(0,160)}`); }
+  const j=await r.json();
+  return {text:(j.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n"), calls:(j.content||[]).filter(b=>b.type==="tool_use").map(b=>({id:b.id,name:b.name,args:b.input||{}}))};
+}
+function bubble(cls, text){ const d=document.createElement("div"); d.className="msg "+cls; d.textContent=text; $("msgs").appendChild(d); $("msgs").scrollTop=1e9; return d; }
+function actNote(t){ bubble("act","✓ "+t); }
+let busy=false;
+async function ask(text){
+  if (busy) return; text=text.trim(); if(!text) return;
+  if (!token){ bubble("err","Connect your GitHub first (the ⚙ button) — the AI uses it to save changes."); openSettings(); return; }
+  if (aiProvider==="anthropic" && !anthKey){ bubble("err","Add your Anthropic API key in Settings ⚙, or switch the AI provider to GitHub Models."); openSettings(); return; }
+  busy=true; $("sendBtn").disabled=true; $("sugg").classList.add("hidden");
+  bubble("user",text); chat.push({role:"user",content:text});
+  const typing=document.createElement("div"); typing.className="typing"; typing.textContent="Thinking…"; $("msgs").appendChild(typing);
+  try{
+    for (let step=0; step<6; step++){
+      const res = aiProvider==="anthropic" ? await callAnthropic() : await callGitHubModels();
+      if (res.calls.length){
+        chat.push({role:"assistant",content:res.text,tool_calls:res.calls});
+        if (res.text) bubble("ai",res.text);
+        for (const c of res.calls){ let out; try{ out=runTool(c.name,c.args); }catch(e){ out="error: "+e.message; } chat.push({role:"tool",id:c.id,content:String(out)}); }
+        continue;
+      }
+      chat.push({role:"assistant",content:res.text||"Done."}); bubble("ai",res.text||"Done."); break;
+    }
+  } catch(e){
+    chat.pop();
+    const msg = e instanceof TypeError ? (aiProvider==="github" ? "Couldn't reach GitHub Models from this browser. Open Settings ⚙ → AI settings and switch to Claude with an Anthropic API key." : "Couldn't reach the AI — check your connection.") : e.message;
+    bubble("err",msg);
+  } finally { typing.remove(); busy=false; $("sendBtn").disabled=false; $("prompt").focus(); }
+}
+const SUGG=["Orbit posted a new short: <link>","Mark Orbit's server video as posted on TikTok","Who has the most views?","What still needs posting?"];
+function openDrawer(){
+  $("drawer").classList.add("open");
+  if (!$("msgs").children.length){ bubble("ai","Hey! Tell me what changed and I'll update the tracker — e.g. “Yug posted a short: youtube.com/shorts/…” or “add a TikTok link to Orbit's server video”. You can also ask how creators are doing."); }
+  $("sugg").innerHTML=SUGG.map(s=>`<button>${esc(s)}</button>`).join("");
+  setTimeout(()=>$("prompt").focus(),200);
+}
+$("fab").onclick=openDrawer; $("closeDrawer").onclick=()=>$("drawer").classList.remove("open");
+$("sugg").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; const t=b.textContent; if(t.includes("<link>")){ $("prompt").value=t.replace("<link>",""); $("prompt").focus(); } else ask(t); });
+$("composer").onsubmit=e=>{ e.preventDefault(); const t=$("prompt").value; $("prompt").value=""; autoGrow(); ask(t); };
+$("prompt").addEventListener("keydown",e=>{ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); $("composer").requestSubmit(); } });
+function autoGrow(){ const t=$("prompt"); t.style.height="auto"; t.style.height=Math.min(120,t.scrollHeight)+"px"; }
+$("prompt").addEventListener("input",autoGrow);
+
+/* ================= boot ================= */
+(async()=>{
+  updateBanner();
+  try { data = await loadData(); } catch { showBanner("Couldn't load tracker data.","Retry"); }
+  render(); await refreshStats(); setInterval(refreshStats, 60000);
+})();
+</script>
+</body>
+</html>
