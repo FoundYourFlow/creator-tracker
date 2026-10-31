@@ -1,75 +1,148 @@
 {
   "creators": [
-    "swurlyne",
-    "Yug",
-    "Orbit",
-    "Hosthammad"
+    {
+      "name": "swurlyne",
+      "platforms": [
+        "youtube",
+        "tiktok"
+      ],
+      "accounts": {}
+    },
+    {
+      "name": "Yug",
+      "platforms": [
+        "youtube",
+        "tiktok"
+      ],
+      "accounts": {}
+    },
+    {
+      "name": "Orbit",
+      "platforms": [
+        "youtube",
+        "tiktok"
+      ],
+      "accounts": {}
+    },
+    {
+      "name": "Hosthammad",
+      "platforms": [
+        "youtube",
+        "tiktok"
+      ],
+      "accounts": {}
+    },
+    {
+      "name": "Haider",
+      "platforms": [
+        "youtube",
+        "tiktok",
+        "instagram",
+        "pinterest"
+      ],
+      "accounts": {
+        "youtube": "https://www.youtube.com/@dword2026",
+        "tiktok": "https://www.tiktok.com/@dword2026",
+        "instagram": "https://www.instagram.com/dword2026",
+        "pinterest": "https://pin.it/32YF3Eh0e"
+      }
+    }
   ],
   "videos": [
     {
       "id": "v1",
       "creator": "Orbit",
       "title": "Every Server Bans This… Except This One 💀",
-      "youtube": "https://www.youtube.com/shorts/Qq4-BwAdUls",
-      "tiktok": "",
-      "ytStatus": "Posted",
-      "ttStatus": "Scheduled",
-      "ytViews": 0,
-      "ttViews": 0,
       "notes": "TikTok Nov 1 7PM",
-      "addedAt": "2026-10-31T02:35:00Z"
+      "addedAt": "2026-10-31T02:35:00Z",
+      "links": {
+        "youtube": "https://www.youtube.com/shorts/Qq4-BwAdUls",
+        "tiktok": ""
+      },
+      "status": {
+        "youtube": "Posted",
+        "tiktok": "Scheduled"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0
+      }
     },
     {
       "id": "v2",
       "creator": "Orbit",
       "title": "Orbit video 2",
-      "youtube": "https://youtube.com/shorts/d5M773X9q1k",
-      "tiktok": "",
-      "ytStatus": "Scheduled",
-      "ttStatus": "Scheduled",
-      "ytViews": 0,
-      "ttViews": 0,
       "notes": "Boss fight with a stick (V2). YT Oct 31 7PM, TikTok Nov 4 12PM",
-      "addedAt": "2026-10-31T02:35:01Z"
+      "addedAt": "2026-10-31T02:35:01Z",
+      "links": {
+        "youtube": "https://youtube.com/shorts/d5M773X9q1k",
+        "tiktok": ""
+      },
+      "status": {
+        "youtube": "Scheduled",
+        "tiktok": "Scheduled"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0
+      }
     },
     {
       "id": "vmvvtqlb1g1e",
       "creator": "swurlyne",
       "title": "swurlyne short 1",
-      "youtube": "https://www.youtube.com/shorts/bJFzoB3RAQI",
-      "tiktok": "https://www.tiktok.com/@voidminescom/video/7701798148016033054",
-      "ytStatus": "Posted",
-      "ttStatus": "Posted",
-      "ytViews": 0,
-      "ttViews": 0,
       "notes": "",
-      "addedAt": "2026-10-31T03:11:03.517Z"
+      "addedAt": "2026-10-31T03:11:03.517Z",
+      "links": {
+        "youtube": "https://www.youtube.com/shorts/bJFzoB3RAQI",
+        "tiktok": "https://www.tiktok.com/@voidminescom/video/7701798148016033054"
+      },
+      "status": {
+        "youtube": "Posted",
+        "tiktok": "Posted"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0
+      }
     },
     {
       "id": "vmvvtqlb8pel",
       "creator": "swurlyne",
       "title": "swurlyne short 2",
-      "youtube": "https://www.youtube.com/shorts/80_72eMGjDA",
-      "tiktok": "https://www.tiktok.com/@voidminescom/video/7700938155033120030",
-      "ytStatus": "Posted",
-      "ttStatus": "Posted",
-      "ytViews": 0,
-      "ttViews": 0,
       "notes": "",
-      "addedAt": "2026-10-31T03:11:03.524Z"
+      "addedAt": "2026-10-31T03:11:03.524Z",
+      "links": {
+        "youtube": "https://www.youtube.com/shorts/80_72eMGjDA",
+        "tiktok": "https://www.tiktok.com/@voidminescom/video/7700938155033120030"
+      },
+      "status": {
+        "youtube": "Posted",
+        "tiktok": "Posted"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0
+      }
     },
     {
       "id": "vmvvtw65tcj2",
       "creator": "Yug",
       "title": "Yug short 1",
-      "youtube": "https://youtube.com/shorts/9RbRo8bhARU",
-      "tiktok": "",
-      "ytStatus": "Scheduled",
-      "ttStatus": "Scheduled",
-      "ytViews": 0,
-      "ttViews": 0,
       "notes": "27 areas (voidmines_1). YT Nov 1 7PM, TikTok Nov 4 7PM",
-      "addedAt": "2026-10-31T03:15:23.825Z"
+      "addedAt": "2026-10-31T03:15:23.825Z",
+      "links": {
+        "youtube": "https://youtube.com/shorts/9RbRo8bhARU",
+        "tiktok": ""
+      },
+      "status": {
+        "youtube": "Scheduled",
+        "tiktok": "Scheduled"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0
+      }
     }
   ]
 }

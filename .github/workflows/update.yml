@@ -24,15 +24,26 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Fetch views and publish stats.json to the data branch
+      - name: Find new uploads, fetch views, publish
         env:
           GH_TOKEN: ${{ github.token }}
-          YT_API_KEY: ${{ secrets.YT_API_KEY }}
           REPO: ${{ github.repository }}
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
         run: |
+          git config user.name "stats-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           stats="$RUNNER_TEMP/stats.json"
           if git fetch -q --depth=1 origin data; then git show FETCH_HEAD:stats.json > "$stats"; else echo '{}' > "$stats"; fi
-          node scripts/update.mjs data.json "$stats"
+
+          for attempt in 1 2 3; do
+            node scripts/update.mjs data.json "$stats"
+            if git diff --quiet -- data.json; then break; fi
+            git add data.json && git commit -qm "Add new uploads found on creators' channels"
+            if git push -q origin HEAD:main; then break; fi
+            echo "main moved; retrying with the latest data"
+            git fetch -q origin main && git reset -q --hard origin/main
+          done
+
           pub="$RUNNER_TEMP/pub"; rm -rf "$pub"; mkdir "$pub"; cp "$stats" "$pub/"
           cd "$pub" && git init -q -b data && git add stats.json \
             && git -c user.name="stats-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update stats" \

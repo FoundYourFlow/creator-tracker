@@ -9,14 +9,15 @@
 <style>
 :root{
   --bg:#f4f5f8; --card:#ffffff; --ink:#0f1220; --muted:#6b7084; --line:#e7e8ee; --soft:#f0f1f5;
-  --accent:#6d5efc; --accent-2:#a855f7; --yt:#ff2e4d; --tt:#00c2c7;
+  --accent:#6d5efc; --accent-2:#a855f7;
+  --youtube:#ff2e4d; --tiktok:#00b8bd; --instagram:#c13584; --pinterest:#f59e0b;
   --ok:#16a34a; --ok-bg:#e7f8ee; --warn:#b45309; --warn-bg:#fff4dc; --bad:#dc2626; --bad-bg:#fdeaea;
   --shadow:0 1px 2px rgba(16,18,32,.04),0 8px 24px rgba(16,18,32,.06);
   --r:16px;
 }
 @media (prefers-color-scheme: dark){
   :root{ --bg:#0b0c12; --card:#14161f; --ink:#eef0f6; --muted:#9097ab; --line:#232634; --soft:#1b1e2a;
-    --ok-bg:#10301f; --ok:#4ade80; --warn-bg:#33270f; --warn:#fbbf24; --bad-bg:#371518; --bad:#f87171;
+    --ok-bg:#10301f; --ok:#4ade80; --warn-bg:#33270f; --warn:#fbbf24; --bad-bg:#371518; --bad:#f87171; --instagram:#e05aa8;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3); }
 }
 *{box-sizing:border-box}
@@ -25,9 +26,8 @@ body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);c
 button{font:inherit;cursor:pointer}
 input,select,textarea{font:inherit;color:var(--ink)}
 a{color:inherit}
-.wrap{max-width:1180px;margin:0 auto;padding:22px 18px 120px}
+.wrap{max-width:1240px;margin:0 auto;padding:22px 18px 120px}
 
-/* top bar */
 .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}
 .brand{display:flex;align-items:center;gap:12px}
 .logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:#fff;font-weight:800;font-size:18px;box-shadow:0 6px 18px rgba(109,94,252,.35)}
@@ -51,94 +51,101 @@ a{color:inherit}
 .banner.show{display:flex;gap:10px;align-items:center;justify-content:space-between}
 .banner .btn{padding:7px 12px}
 
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:22px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow)}
 .stat .l{color:var(--muted);font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
-.stat .v{font-size:28px;font-weight:800;margin-top:6px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat .v{font-size:26px;font-weight:800;margin-top:6px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .stat.hero{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:0}
 .stat.hero .l{color:rgba(255,255,255,.8)}
-.chip{width:8px;height:8px;border-radius:50%;display:inline-block}
 
-/* creators grid */
 .section-h{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px;gap:10px;flex-wrap:wrap}
 .section-h h2{font-size:16px;margin:0;font-weight:800;letter-spacing:-.01em}
-.legend{display:flex;gap:14px;color:var(--muted);font-size:12px;font-weight:500}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.legend{display:flex;gap:14px;color:var(--muted);font-size:12px;font-weight:500;flex-wrap:wrap}
+.chip{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
 .cc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .12s, box-shadow .12s;position:relative}
 .cc:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(16,18,32,.05),0 14px 30px rgba(16,18,32,.09)}
-.cc-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.cc-h{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-right:70px}
 .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:16px;flex:none}
 .cc-name{font-weight:800;font-size:15px}
 .cc-sub{color:var(--muted);font-size:12px;margin-top:2px}
-.rankb{position:absolute;top:14px;right:14px;font-size:11px;font-weight:800;color:var(--muted);background:var(--soft);padding:3px 8px;border-radius:20px}
+.cc-acc{display:flex;gap:4px;margin-top:5px}
+.cc-acc a{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;background:var(--soft)}
+.cc-tools{position:absolute;top:12px;right:12px;display:flex;gap:6px;align-items:center}
+.rankb{font-size:11px;font-weight:800;color:var(--muted);background:var(--soft);padding:3px 8px;border-radius:20px}
 .rankb.gold{background:#fff4cc;color:#a16207}
+.cc-edit{border:0;background:none;color:var(--muted);width:26px;height:26px;border-radius:8px}
+.cc-edit:hover{background:var(--soft);color:var(--ink)}
 .cc-total{font-size:26px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .cc-total small{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0;margin-left:4px}
 .split{height:8px;border-radius:5px;background:var(--soft);overflow:hidden;display:flex;margin:10px 0 12px}
 .split i{display:block;height:100%}
 .cc-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .mini{background:var(--soft);border-radius:10px;padding:8px 10px}
-.mini .k{font-size:11px;color:var(--muted);font-weight:700;display:flex;align-items:center;gap:5px}
+.mini .k{font-size:11px;font-weight:700;display:flex;align-items:center;gap:5px}
 .mini .n{font-weight:800;font-size:15px;margin-top:2px;font-variant-numeric:tabular-nums}
 .mini .p{font-size:11px;color:var(--muted);font-weight:500}
-.add-card{border:2px dashed var(--line);background:transparent;box-shadow:none;display:grid;place-items:center;color:var(--muted);font-weight:700;min-height:180px}
+.add-card{border:2px dashed var(--line);background:transparent;box-shadow:none;display:grid;place-items:center;color:var(--muted);font-weight:700;min-height:200px}
 .add-card:hover{color:var(--accent);border-color:var(--accent)}
 
-/* videos */
 .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .search{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 12px;min-width:200px}
 .sel{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 12px;font-weight:600}
 .vlist{display:flex;flex-direction:column;gap:10px}
-.vrow{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);display:grid;grid-template-columns:minmax(0,1fr) 160px 160px 112px;gap:14px;align-items:center}
+.vrow{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.vmain{flex:1 1 220px;min-width:0}
 .vtitle{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .vmeta{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12px;color:var(--muted);flex-wrap:wrap}
 .tag{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--ink)}
 .tag .av{width:20px;height:20px;font-size:10px}
-.plat{display:flex;align-items:center;gap:10px;min-width:0}
-.plat-ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none}
-.plat-ic.yt{background:rgba(255,46,77,.12);color:var(--yt)} .plat-ic.tt{background:rgba(0,194,199,.13);color:var(--tt)}
-.plat-v{font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
-.plat-v .auto{font-size:10px;font-weight:700;color:var(--ok);margin-left:4px;vertical-align:2px}
-.status{border:0;border-radius:20px;padding:3px 9px;font-size:11px;font-weight:700;margin-top:3px;appearance:none;-webkit-appearance:none}
+.badge{font-size:10px;font-weight:700;background:var(--soft);color:var(--muted);padding:2px 7px;border-radius:20px}
+.plats{display:flex;gap:10px;flex-wrap:wrap}
+.plat{display:flex;align-items:center;gap:9px;width:150px}
+.plat-ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none;text-decoration:none}
+.plat-v{font-weight:800;font-variant-numeric:tabular-nums;font-size:15px;white-space:nowrap}
+.plat-v .auto{font-size:9px;font-weight:800;color:var(--ok);margin-left:4px;vertical-align:2px;letter-spacing:.03em}
+.plat-v .auto.delayed{color:var(--warn)}
+.vin{width:80px;font-weight:800;font-size:14px;border:1px dashed var(--line);background:transparent;border-radius:7px;padding:2px 6px;font-variant-numeric:tabular-nums}
+.vin:focus{outline:2px solid var(--accent);border-color:transparent}
+.status{border:0;border-radius:20px;padding:3px 9px;font-size:11px;font-weight:700;margin-top:3px;appearance:none;-webkit-appearance:none;cursor:pointer}
 .status[data-v="Posted"]{background:var(--ok-bg);color:var(--ok)}
 .status[data-v="Scheduled"]{background:var(--warn-bg);color:var(--warn)}
 .status[data-v="Not Posted"]{background:var(--bad-bg);color:var(--bad)}
-select.status{cursor:pointer;padding-right:9px}
 select.status:disabled{cursor:default;opacity:1}
-.vact{display:flex;gap:6px;justify-content:flex-end}
-.vact a,.vact button{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--muted);text-decoration:none}
-.vact a:hover,.vact button:hover{color:var(--ink)}
+.vact{display:flex;gap:6px;margin-left:auto}
+.vact button{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--muted)}
+.vact button:hover{color:var(--ink)}
 .empty{padding:50px 20px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:var(--r)}
 .empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
-@media (max-width:760px){
-  .vrow{grid-template-columns:1fr 1fr;}
-  .vrow .vmain{grid-column:1/-1}
-  .vrow .vact{grid-column:1/-1;justify-content:flex-end}
-}
 
-/* modal */
 .modal{position:fixed;inset:0;background:rgba(10,11,20,.5);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
 .modal.open{display:flex}
-.box{background:var(--card);border-radius:20px;padding:22px;width:100%;max-width:480px;box-shadow:0 30px 80px rgba(0,0,0,.25);max-height:92vh;overflow:auto}
+.box{background:var(--card);border-radius:20px;padding:22px;width:100%;max-width:520px;box-shadow:0 30px 80px rgba(0,0,0,.25);max-height:92vh;overflow:auto}
 .box h3{margin:0 0 4px;font-size:18px;font-weight:800}
 .box .hint{color:var(--muted);margin:0 0 16px;line-height:1.5;font-size:13px}
 .field{margin-bottom:12px}
 .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
 .field input,.field select,.field textarea{width:100%;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-.field input:focus,.field select:focus,.field textarea:focus,.search:focus{outline:2px solid var(--accent);outline-offset:-1px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field input:focus,.field select:focus,.search:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.pblock{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.pblock h4{margin:0 0 8px;font-size:13px;display:flex;align-items:center;gap:8px}
+.pgrid{display:grid;grid-template-columns:1fr 130px 110px;gap:8px}
+.pgrid input,.pgrid select{width:100%;background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:13px}
+.pnote{font-size:11px;color:var(--muted);margin-top:6px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.check{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-weight:600;cursor:pointer}
+.check input{accent-color:var(--accent);width:16px;height:16px}
 .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
 .steps{margin:0 0 14px;padding-left:20px;color:var(--muted);line-height:1.7;font-size:13px}
 .steps b{color:var(--ink)}
+@media (max-width:560px){ .pgrid{grid-template-columns:1fr 1fr} .pgrid .purl{grid-column:1/-1} .plat{width:140px} }
 
-/* AI */
 .fab{position:fixed;right:22px;bottom:22px;z-index:40;border:0;border-radius:999px;padding:14px 20px 14px 16px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;display:flex;align-items:center;gap:9px;box-shadow:0 12px 30px rgba(109,94,252,.45)}
 .fab:hover{filter:brightness(1.08)}
 .drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--card);border-left:1px solid var(--line);z-index:45;display:flex;flex-direction:column;transform:translateX(105%);transition:transform .22s ease;box-shadow:-20px 0 60px rgba(0,0,0,.12)}
 .drawer.open{transform:none}
 .dh{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line)}
-.dh b{font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px}
+.dh b{font-size:15px;font-weight:800}
 .msgs{flex:1;overflow:auto;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
 .msg{max-width:88%;padding:10px 13px;border-radius:14px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
 .msg.user{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:5px}
@@ -178,10 +185,7 @@ select.status:disabled{cursor:default;opacity:1}
 
   <section id="tab-dashboard">
     <div class="stats" id="stats"></div>
-    <div class="section-h">
-      <h2>Creators</h2>
-      <div class="legend"><span><span class="chip" style="background:var(--yt)"></span> Shorts</span><span><span class="chip" style="background:var(--tt)"></span> TikTok</span></div>
-    </div>
+    <div class="section-h"><h2>Creators</h2><div class="legend" id="legend"></div></div>
     <div class="grid" id="creatorGrid"></div>
   </section>
 
@@ -190,7 +194,7 @@ select.status:disabled{cursor:default;opacity:1}
       <div class="toolbar">
         <input class="search" id="q" placeholder="Search videos…">
         <select class="sel" id="filterCreator"><option value="">All creators</option></select>
-        <select class="sel" id="filterStatus"><option value="">Any status</option><option value="notyet">Still to post</option><option value="done">Posted on both</option></select>
+        <select class="sel" id="filterStatus"><option value="">Any status</option><option value="notyet">Still to post</option><option value="done">Posted everywhere</option></select>
       </div>
     </div>
     <div class="vlist" id="videoList"></div>
@@ -204,28 +208,18 @@ select.status:disabled{cursor:default;opacity:1}
   <div class="msgs" id="msgs"></div>
   <div class="sugg" id="sugg"></div>
   <form class="composer" id="composer">
-    <textarea id="prompt" rows="1" placeholder="e.g. Yug posted a short today: youtube.com/shorts/…"></textarea>
+    <textarea id="prompt" rows="1" placeholder="e.g. Haider posted on Instagram: instagram.com/reel/…"></textarea>
     <button class="btn" type="submit" id="sendBtn">Send</button>
   </form>
 </aside>
 
-<!-- video modal -->
 <div class="modal" id="videoModal"><div class="box">
   <h3 id="vmTitle">Add video</h3>
-  <p class="hint">Paste a YouTube or TikTok link and its views update automatically.</p>
+  <p class="hint">Paste a link for each platform it's on. YouTube and TikTok views update automatically; type Instagram and Pinterest views yourself.</p>
   <form id="videoForm">
     <div class="field"><label>Creator</label><select id="vCreator" required></select></div>
     <div class="field"><label>Title</label><input id="vTitle" required maxlength="200" placeholder="What's the video?"></div>
-    <div class="field"><label>YouTube Shorts link</label><input id="vYt" placeholder="https://youtube.com/shorts/…"></div>
-    <div class="field"><label>TikTok link</label><input id="vTt" placeholder="https://www.tiktok.com/@…/video/…"></div>
-    <div class="two">
-      <div class="field"><label>Shorts status</label><select id="vYs"></select></div>
-      <div class="field"><label>TikTok status</label><select id="vTs"></select></div>
-    </div>
-    <div class="two">
-      <div class="field"><label>Shorts views <span style="font-weight:500">(if no link)</span></label><input id="vYv" type="number" min="0" placeholder="auto"></div>
-      <div class="field"><label>TikTok views <span style="font-weight:500">(if not auto)</span></label><input id="vTv" type="number" min="0" placeholder="auto"></div>
-    </div>
+    <div id="vPlatforms"></div>
     <div class="field"><label>Notes</label><input id="vNotes" maxlength="300"></div>
     <div class="actions">
       <button type="button" class="btn danger hidden" id="vDelete" style="margin-right:auto">Delete</button>
@@ -235,22 +229,26 @@ select.status:disabled{cursor:default;opacity:1}
   </form>
 </div></div>
 
-<!-- creator modal -->
 <div class="modal" id="creatorModal"><div class="box">
-  <h3>Add creator</h3>
+  <h3 id="cmTitle">Add creator</h3>
+  <p class="hint">Pick the platforms they post on. If you add their YouTube channel, new uploads are added to the tracker automatically.</p>
   <form id="creatorForm">
     <div class="field"><label>Name</label><input id="cName" required maxlength="60"></div>
-    <div class="actions"><button type="button" class="btn ghost" data-close>Cancel</button><button class="btn" type="submit">Add</button></div>
+    <div class="field"><label>Platforms</label><div class="checks" id="cChecks"></div></div>
+    <div id="cAccounts"></div>
+    <div class="actions">
+      <button type="button" class="btn danger hidden" id="cDelete" style="margin-right:auto">Remove</button>
+      <button type="button" class="btn ghost" data-close>Cancel</button>
+      <button class="btn" type="submit">Save</button>
+    </div>
   </form>
 </div></div>
 
-<!-- confirm -->
 <div class="modal" id="confirmModal"><div class="box">
   <h3 id="confirmText" style="font-size:16px"></h3>
   <div class="actions"><button class="btn ghost" data-close>Cancel</button><button class="btn danger" id="cYes">Delete</button></div>
 </div></div>
 
-<!-- settings / connect -->
 <div class="modal" id="settingsModal"><div class="box">
   <h3>Connect to edit</h3>
   <p class="hint">Saving changes and the AI assistant both use a GitHub token. You only do this once per browser, and the token is stored only in this browser.</p>
@@ -280,7 +278,7 @@ select.status:disabled{cursor:default;opacity:1}
 
 <script>
 /* ================= config ================= */
-const OVERRIDE_REPO = ""; // "owner/repo" if served from a custom domain
+const OVERRIDE_REPO = "";
 const REPO = OVERRIDE_REPO || (() => {
   const owner = location.hostname.split(".")[0];
   const repo = location.pathname.split("/").filter(Boolean)[0] || `${owner}.github.io`;
@@ -288,6 +286,19 @@ const REPO = OVERRIDE_REPO || (() => {
 })();
 const API = `https://api.github.com/repos/${REPO}`;
 const STATUSES = ["Not Posted","Scheduled","Posted"];
+const PLATFORMS = ["youtube","tiktok","instagram","pinterest"];
+const ICONS = {
+  youtube:`<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg>`,
+  tiktok:`<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.6a2.9 2.9 0 1 1-2-2.7V9.4a6.3 6.3 0 1 0 5.4 6.2V8.7a8.2 8.2 0 0 0 3.8 1V6.7z"/></svg>`,
+  instagram:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>`,
+  pinterest:`<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.6 19.3c-.1-.8-.2-2 0-2.9l1.3-5.4s-.3-.7-.3-1.6c0-1.5.9-2.7 2-2.7.9 0 1.4.7 1.4 1.5 0 .9-.6 2.3-.9 3.6-.3 1.1.5 2 1.6 2 1.9 0 3.4-2 3.4-5 0-2.6-1.9-4.4-4.5-4.4-3.1 0-4.9 2.3-4.9 4.7 0 .9.4 1.9.8 2.5.1.1.1.2.1.3l-.3 1.2c0 .2-.2.3-.4.2-1.3-.6-2.2-2.6-2.2-4.2 0-3.4 2.5-6.6 7.2-6.6 3.8 0 6.7 2.7 6.7 6.3 0 3.7-2.4 6.8-5.6 6.8-1.1 0-2.2-.6-2.5-1.3l-.7 2.6c-.2 1-.9 2.2-1.4 2.9A10 10 0 1 0 12 2z"/></svg>`,
+};
+const P = {
+  youtube:  {name:"YouTube Shorts", short:"Shorts",    color:"var(--youtube)",   auto:true,  ph:"https://youtube.com/shorts/…",  acc:"https://youtube.com/@…"},
+  tiktok:   {name:"TikTok",         short:"TikTok",    color:"var(--tiktok)",    auto:true,  ph:"https://www.tiktok.com/@…/video/…", acc:"https://www.tiktok.com/@…"},
+  instagram:{name:"Instagram",      short:"Instagram", color:"var(--instagram)", auto:false, ph:"https://www.instagram.com/reel/…", acc:"https://www.instagram.com/…"},
+  pinterest:{name:"Pinterest",      short:"Pinterest", color:"var(--pinterest)", auto:false, ph:"https://pin.it/…",                 acc:"https://pinterest.com/…"},
+};
 const PALETTE = ["#6d5efc","#ff2e4d","#00a6ab","#f59e0b","#10b981","#ec4899","#3b82f6","#8b5cf6","#ef4444","#14b8a6"];
 
 const LS = { get(k){ try { return localStorage.getItem(k+":"+REPO); } catch { return null; } },
@@ -295,17 +306,16 @@ const LS = { get(k){ try { return localStorage.getItem(k+":"+REPO); } catch { re
 let token = LS.get("ct_token");
 let aiProvider = LS.get("ct_ai") || "github";
 let anthKey = LS.get("ct_anth");
-
 let data = {creators:[], videos:[]};
 let stats = {videos:{}};
 
 /* ================= helpers ================= */
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const num = v => { const n = Number(v); return isFinite(n) && n > 0 ? Math.round(n) : 0; };
+const num = v => { const n = Number(String(v??"").replace(/[^0-9.]/g,"")); return isFinite(n) && n > 0 ? Math.round(n) : 0; };
 const fmt = n => n >= 1e6 ? (n/1e6).toFixed(n>=1e7?1:2).replace(/\.?0+$/,"")+"M" : n >= 1e4 ? (n/1e3).toFixed(1).replace(/\.0$/,"")+"K" : Math.round(n).toLocaleString("en-US");
-const safeUrl = u => /^https:\/\/([a-z0-9-]+\.)*(youtube\.com|youtu\.be|tiktok\.com)\//i.test(u||"") ? u : "";
-const normUrl = u => { u = String(u||"").trim(); if (u && !/^https?:\/\//i.test(u)) u = "https://"+u; return u; };
+const safeUrl = u => /^https:\/\/([a-z0-9-]+\.)*(youtube\.com|youtu\.be|tiktok\.com|instagram\.com|pinterest\.[a-z.]+|pin\.it)\//i.test(u||"") ? u : "";
+const normUrl = u => { u = String(u||"").trim(); if (!u) return ""; if (!/^https?:\/\//i.test(u)) u = "https://"+u; try { const x = new URL(u); ["si","utm_source","utm_medium","utm_campaign","igsh","rpxt","_r","_t","is_from_webapp","sender_device"].forEach(k=>x.searchParams.delete(k)); u = x.toString().replace(/\?$/,""); } catch {} return u; };
 const colorFor = name => { let h=0; for (const c of String(name)) h=(h*31+c.charCodeAt(0))>>>0; return PALETTE[h%PALETTE.length]; };
 const initials = n => String(n).trim().slice(0,1).toUpperCase() || "?";
 const ago = t => { const s=Math.max(0,Date.now()/1000-t); return s<90?"just now":s<3600?Math.round(s/60)+" min ago":s<86400?Math.round(s/3600)+"h ago":Math.round(s/86400)+"d ago"; };
@@ -315,31 +325,53 @@ const b64dec = b => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\s/
 const b64enc = s => { const by=new TextEncoder().encode(s); let bin=""; for (let i=0;i<by.length;i+=0x8000) bin+=String.fromCharCode(...by.subarray(i,i+0x8000)); return btoa(bin); };
 const gh = (path, opts={}) => fetch(path.startsWith("http")?path:API+path, {...opts, cache:"no-store", headers:{Accept:"application/vnd.github+json", ...(token?{Authorization:`Bearer ${token}`}:{}), ...(opts.headers||{})}});
 
-function views(v){
-  const s = stats.videos?.[v.id] || {};
-  return {
-    yt: s.yt && typeof s.yt.views==="number" ? {n:s.yt.views, auto:true, src:s.yt.source} : {n:num(v.ytViews), auto:false},
-    tt: s.tt && typeof s.tt.views==="number" ? {n:s.tt.views, auto:true, src:s.tt.source} : {n:num(v.ttViews), auto:false},
-  };
+/* ================= data format (same as scripts/update.mjs norm) ================= */
+function norm(d){
+  d = d || {};
+  const creators = (d.creators||[]).map(c => typeof c==="string"
+    ? {name:c, platforms:["youtube","tiktok"], accounts:{}}
+    : {name:String(c.name||"").trim(), platforms:(c.platforms||[]).filter(p=>PLATFORMS.includes(p)), accounts:c.accounts||{}, ...(c.trackSince?{trackSince:c.trackSince}:{})}).filter(c=>c.name);
+  const videos = (d.videos||[]).map(v => {
+    if (v.links) return {...v, links:{...v.links}, status:{...(v.status||{})}, views:{...(v.views||{})}};
+    const {youtube, tiktok, ytStatus, ttStatus, ytViews, ttViews, ...rest} = v;
+    return {...rest, links:{youtube:youtube||"", tiktok:tiktok||""}, status:{youtube:ytStatus||"Not Posted", tiktok:ttStatus||"Not Posted"}, views:{youtube:ytViews||0, tiktok:ttViews||0}};
+  });
+  return {...d, creators, videos};
 }
+const creatorOf = name => data.creators.find(c => c.name===name);
+const findCreator = n => data.creators.find(c => c.name.toLowerCase()===String(n||"").trim().toLowerCase());
+function platformsFor(v){
+  const c = creatorOf(v.creator);
+  const set = new Set(c && c.platforms.length ? c.platforms : ["youtube","tiktok"]);
+  for (const p of PLATFORMS) if ((v.links||{})[p] || ((v.status||{})[p] && v.status[p]!=="Not Posted")) set.add(p);
+  return PLATFORMS.filter(p => set.has(p));
+}
+function viewOf(v, p){
+  const s = stats.videos?.[v.id] || {};
+  const a = p==="youtube" ? (s.youtube||s.yt) : p==="tiktok" ? (s.tiktok||s.tt) : null;
+  if (a && typeof a.views==="number" && (v.links||{})[p]) return {n:a.views, auto:true, delayed:a.source==="ryd"};
+  return {n:num((v.views||{})[p]), auto:false};
+}
+const isPosted = (v,p) => (v.status||{})[p]==="Posted";
 
 /* ================= load ================= */
 async function loadData(){
   if (token){
     const r = await gh(`/contents/data.json?ref=main&t=${Date.now()}`).catch(()=>null);
-    if (r && r.ok){ const j=await r.json(); return JSON.parse(b64dec(j.content)); }
+    if (r && r.ok){ const j=await r.json(); return norm(JSON.parse(b64dec(j.content))); }
     if (r && r.status===401){ token=null; LS.set("ct_token",null); }
   }
   const r = await fetch(`data.json?t=${Date.now()}`, {cache:"no-store"});
-  return await r.json();
+  return norm(await r.json());
 }
 async function loadStats(){
   try { const r = await fetch(`https://raw.githubusercontent.com/${REPO}/data/stats.json?t=${Date.now()}`, {cache:"no-store"}); if (r.ok) return await r.json(); } catch {}
   try { const r = await gh(`/contents/stats.json?ref=data`, {headers:{Accept:"application/vnd.github.raw+json"}}); if (r.ok) return await r.json(); } catch {}
   return null;
 }
-async function refreshStats(){
+async function refresh(){
   const s = await loadStats(); if (s) stats = s;
+  if (!queue.length && !saving){ try { const d = await loadData(); if (!queue.length && !saving) data = d; } catch {} }
   $("updated").innerHTML = `<span class="live"></span>` + (stats.updatedAt ? `Views updated ${ago(stats.updatedAt)}` : `Views start updating a few minutes after setup`);
   render();
 }
@@ -357,13 +389,13 @@ async function flush(){
   if (saving || !queue.length) return;
   saving=true; const ops=queue.splice(0);
   try{
-    for (let attempt=0; attempt<4; attempt++){
+    for (let attempt=0; attempt<5; attempt++){
       const r = await gh(`/contents/data.json?ref=main&t=${Date.now()}`);
       if (!r.ok) throw new Error(r.status===401||r.status===403||r.status===404?"auth":"net");
-      const j = await r.json(), latest = JSON.parse(b64dec(j.content));
+      const j = await r.json(), latest = norm(JSON.parse(b64dec(j.content)));
       ops.forEach(fn => fn(latest));
       const put = await gh(`/contents/data.json`, {method:"PUT", body: JSON.stringify({message:"Update tracker", content:b64enc(JSON.stringify(latest,null,2)+"\n"), sha:j.sha, branch:"main"})});
-      if (put.status===409 || put.status===422) { await new Promise(r=>setTimeout(r,400)); continue; }
+      if (put.status===409 || put.status===422) { await new Promise(r=>setTimeout(r,500+attempt*400)); continue; }
       if (!put.ok) throw new Error(put.status===401||put.status===403?"auth":"net");
       queue.forEach(fn => fn(latest)); data=latest; render();
       $("saving").textContent="Saved ✓"; setTimeout(()=>{ if($("saving").textContent==="Saved ✓") $("saving").textContent=""; },2000);
@@ -372,79 +404,76 @@ async function flush(){
     throw new Error("net");
   } catch(e){
     queue = ops.concat(queue); saving=false; $("saving").textContent="Not saved";
-    if (e.message==="auth"){ showBanner("GitHub didn't accept the save. Check your token has Contents: Read and write on this repo.", "Fix"); }
+    if (e.message==="auth") showBanner("GitHub didn't accept the save. Check your token has Contents: Read and write on this repo.", "Fix");
     else setTimeout(flush, 4000);
-    return;
   }
 }
 window.addEventListener("beforeunload", e => { if (queue.length||saving){ e.preventDefault(); e.returnValue=""; } });
 
 /* ================= render ================= */
+function usedPlatforms(){ const s=new Set(); data.creators.forEach(c=>c.platforms.forEach(p=>s.add(p))); data.videos.forEach(v=>platformsFor(v).forEach(p=>s.add(p))); return PLATFORMS.filter(p=>s.has(p)); }
 function creatorStats(){
-  const map = new Map((data.creators||[]).map(n => [n,{name:n,listed:true,videos:0,ytPosted:0,ttPosted:0,ytViews:0,ttViews:0}]));
-  for (const v of data.videos||[]){
-    if (!map.has(v.creator)) map.set(v.creator,{name:v.creator,listed:false,videos:0,ytPosted:0,ttPosted:0,ytViews:0,ttViews:0});
-    const s=map.get(v.creator), w=views(v);
-    s.videos++; if (v.ytStatus==="Posted") s.ytPosted++; if (v.ttStatus==="Posted") s.ttPosted++;
-    s.ytViews+=w.yt.n; s.ttViews+=w.tt.n;
+  const map = new Map(data.creators.map(c => [c.name,{c, name:c.name, listed:true, videos:0, per:{}, total:0}]));
+  for (const v of data.videos){
+    if (!map.has(v.creator)) map.set(v.creator,{c:{name:v.creator,platforms:[],accounts:{}}, name:v.creator, listed:false, videos:0, per:{}, total:0});
+    const s=map.get(v.creator); s.videos++;
+    for (const p of platformsFor(v)){ const w=viewOf(v,p); s.per[p]=s.per[p]||{views:0,posted:0,count:0}; s.per[p].views+=w.n; s.per[p].count++; if(isPosted(v,p)) s.per[p].posted++; s.total+=w.n; }
   }
-  return [...map.values()].map(s=>({...s,total:s.ytViews+s.ttViews,avg:s.videos?(s.ytViews+s.ttViews)/s.videos:0})).sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name));
+  return [...map.values()].map(s=>({...s, avg:s.videos?s.total/s.videos:0})).sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name));
 }
-const ytIcon = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg>`;
-const ttIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.6a2.9 2.9 0 1 1-2-2.7V9.4a6.3 6.3 0 1 0 5.4 6.2V8.7a8.2 8.2 0 0 0 3.8 1V6.7z"/></svg>`;
-
 function renderDashboard(){
-  const st=creatorStats(), vids=data.videos||[];
-  const yt=st.reduce((a,s)=>a+s.ytViews,0), tt=st.reduce((a,s)=>a+s.ttViews,0);
-  const toPost = vids.filter(v=>v.ytStatus!=="Posted"||v.ttStatus!=="Posted").length;
-  $("stats").innerHTML = `
-    <div class="stat hero"><div class="l">Total views</div><div class="v">${fmt(yt+tt)}</div></div>
-    <div class="stat"><div class="l"><span class="chip" style="background:var(--yt)"></span>Shorts views</div><div class="v">${fmt(yt)}</div></div>
-    <div class="stat"><div class="l"><span class="chip" style="background:var(--tt)"></span>TikTok views</div><div class="v">${fmt(tt)}</div></div>
-    <div class="stat"><div class="l">Videos</div><div class="v">${vids.length}</div></div>
-    <div class="stat"><div class="l">Still to post</div><div class="v" style="color:${toPost?'var(--bad)':'inherit'}">${toPost}</div></div>`;
-  $("creatorGrid").innerHTML = st.map((s,i)=>`
-    <div class="cc" data-creator="${esc(s.name)}">
-      <span class="rankb ${i===0&&s.total?'gold':''}">#${i+1}</span>
+  const st=creatorStats(), used=usedPlatforms();
+  const per = Object.fromEntries(used.map(p=>[p, st.reduce((a,s)=>a+(s.per[p]?.views||0),0)]));
+  const total = Object.values(per).reduce((a,b)=>a+b,0);
+  const toPost = data.videos.filter(v=>platformsFor(v).some(p=>!isPosted(v,p))).length;
+  $("stats").innerHTML = `<div class="stat hero"><div class="l">Total views</div><div class="v">${fmt(total)}</div></div>`
+    + used.map(p=>`<div class="stat"><div class="l"><span style="color:${P[p].color};display:flex">${ICONS[p]}</span>${P[p].short} views</div><div class="v">${fmt(per[p])}</div></div>`).join("")
+    + `<div class="stat"><div class="l">Videos</div><div class="v">${data.videos.length}</div></div>`
+    + `<div class="stat"><div class="l">Still to post</div><div class="v" style="color:${toPost?'var(--bad)':'inherit'}">${toPost}</div></div>`;
+  $("legend").innerHTML = used.map(p=>`<span><span class="chip" style="background:${P[p].color}"></span>${P[p].short}</span>`).join("");
+  $("creatorGrid").innerHTML = st.map((s,i)=>{
+    const plats = s.c.platforms.length ? s.c.platforms : PLATFORMS.filter(p=>s.per[p]);
+    const acc = PLATFORMS.filter(p=>safeUrl(s.c.accounts?.[p])).map(p=>`<a href="${esc(safeUrl(s.c.accounts[p]))}" target="_blank" rel="noopener" title="${P[p].name}" style="color:${P[p].color}" onclick="event.stopPropagation()">${ICONS[p]}</a>`).join("");
+    return `<div class="cc" data-creator="${esc(s.name)}">
+      <div class="cc-tools"><span class="rankb ${i===0&&s.total?'gold':''}">#${i+1}</span>${s.listed?`<button class="cc-edit" data-editc="${esc(s.name)}" title="Edit creator">✎</button>`:""}</div>
       <div class="cc-h"><div class="av" style="background:${colorFor(s.name)}">${esc(initials(s.name))}</div>
-        <div><div class="cc-name">${esc(s.name)}</div><div class="cc-sub">${s.videos} video${s.videos===1?"":"s"} · avg ${fmt(s.avg)}</div></div></div>
+        <div><div class="cc-name">${esc(s.name)}</div><div class="cc-sub">${s.videos} video${s.videos===1?"":"s"} · avg ${fmt(s.avg)}</div>${acc?`<div class="cc-acc">${acc}</div>`:""}</div></div>
       <div class="cc-total">${fmt(s.total)}<small>views</small></div>
-      <div class="split">${s.total?`<i style="width:${s.ytViews/s.total*100}%;background:var(--yt)"></i><i style="flex:1;background:var(--tt)"></i>`:""}</div>
-      <div class="cc-row">
-        <div class="mini"><div class="k" style="color:var(--yt)">${ytIcon} Shorts</div><div class="n">${fmt(s.ytViews)}</div><div class="p">${s.ytPosted}/${s.videos} posted</div></div>
-        <div class="mini"><div class="k" style="color:var(--tt)">${ttIcon} TikTok</div><div class="n">${fmt(s.ttViews)}</div><div class="p">${s.ttPosted}/${s.videos} posted</div></div>
-      </div>
-    </div>`).join("") + `<button class="cc add-card" id="addCreatorCard">+ Add creator</button>`;
+      <div class="split">${s.total?plats.map(p=>`<i style="width:${(s.per[p]?.views||0)/s.total*100}%;background:${P[p].color}"></i>`).join(""):""}</div>
+      <div class="cc-row">${plats.map(p=>`<div class="mini"><div class="k" style="color:${P[p].color}">${ICONS[p]} ${P[p].short}</div><div class="n">${fmt(s.per[p]?.views||0)}</div><div class="p">${s.per[p]?.posted||0}/${s.videos} posted</div></div>`).join("")}</div>
+    </div>`; }).join("") + `<button class="cc add-card" id="addCreatorCard">+ Add creator</button>`;
 }
 function renderSelects(){
-  const opts=(data.creators||[]).map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join("");
-  const f=$("filterCreator"), c=f.value; f.innerHTML=`<option value="">All creators</option>`+opts; f.value=c;
+  const opts=data.creators.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+  const f=$("filterCreator"), cur=f.value; f.innerHTML=`<option value="">All creators</option>`+opts; f.value=cur;
 }
-function statusSel(v,f){
-  const val=v[f]||"Not Posted";
-  return `<select class="status" data-id="${esc(v.id)}" data-f="${f}" data-v="${esc(val)}" ${token?"":"disabled"}>${STATUSES.map(s=>`<option ${s===val?"selected":""}>${s}</option>`).join("")}</select>`;
+function platCell(v,p){
+  const w=viewOf(v,p), link=safeUrl((v.links||{})[p]), val=(v.status||{})[p]||"Not Posted";
+  const ic = link ? `<a class="plat-ic" href="${esc(link)}" target="_blank" rel="noopener" title="Open on ${P[p].name}" style="color:${P[p].color};background:color-mix(in srgb, ${P[p].color} 14%, transparent)">${ICONS[p]}</a>`
+                  : `<div class="plat-ic" title="${P[p].name}" style="color:${P[p].color};background:color-mix(in srgb, ${P[p].color} 14%, transparent);opacity:.6">${ICONS[p]}</div>`;
+  let vv;
+  if (w.auto) vv = `${fmt(w.n)}<span class="auto ${w.delayed?'delayed':''}" title="${w.delayed?'YouTube blocked the live check — this can be a few hours behind':'Updates automatically'}">● ${w.delayed?'DELAYED':'LIVE'}</span>`;
+  else if (token && !(P[p].auto && link)) vv = `<input class="vin" inputmode="numeric" data-id="${esc(v.id)}" data-p="${p}" value="${w.n?w.n:""}" placeholder="views">`;
+  else vv = w.n ? fmt(w.n) : (P[p].auto && link ? `<span style="color:var(--muted);font-size:12px">soon…</span>` : "—");
+  return `<div class="plat">${ic}<div><div class="plat-v">${vv}</div><select class="status" data-id="${esc(v.id)}" data-p="${p}" data-v="${esc(val)}" ${token?"":"disabled"}>${STATUSES.map(s=>`<option ${s===val?"selected":""}>${s}</option>`).join("")}</select></div></div>`;
 }
 function renderVideos(){
+  const a=document.activeElement; if (a && a.classList.contains("vin") && $("videoList").contains(a)) { renderVideos.pending=true; return; }
   const q=$("q").value.trim().toLowerCase(), fc=$("filterCreator").value, fs=$("filterStatus").value;
-  let list=(data.videos||[]).filter(v=>(!fc||v.creator===fc)&&(!q||(v.title+" "+v.creator+" "+(v.notes||"")).toLowerCase().includes(q)));
-  if (fs==="notyet") list=list.filter(v=>v.ytStatus!=="Posted"||v.ttStatus!=="Posted");
-  if (fs==="done") list=list.filter(v=>v.ytStatus==="Posted"&&v.ttStatus==="Posted");
+  let list=data.videos.filter(v=>(!fc||v.creator===fc)&&(!q||(v.title+" "+v.creator+" "+(v.notes||"")).toLowerCase().includes(q)));
+  if (fs==="notyet") list=list.filter(v=>platformsFor(v).some(p=>!isPosted(v,p)));
+  if (fs==="done") list=list.filter(v=>platformsFor(v).every(p=>isPosted(v,p)));
   list=list.slice().sort((a,b)=>String(b.addedAt).localeCompare(String(a.addedAt)));
-  if (!list.length){ $("videoList").innerHTML = `<div class="empty"><b>${(data.videos||[]).length?"Nothing matches":"No videos yet"}</b>${(data.videos||[]).length?"Try a different filter.":"Click “+ Add video” or ask the AI."}</div>`; return; }
-  $("videoList").innerHTML = list.map(v=>{ const w=views(v), yt=safeUrl(v.youtube), tt=safeUrl(v.tiktok); return `
+  if (!list.length){ $("videoList").innerHTML = `<div class="empty"><b>${data.videos.length?"Nothing matches":"No videos yet"}</b>${data.videos.length?"Try a different filter.":"Click “+ Add video” or ask the AI."}</div>`; return; }
+  $("videoList").innerHTML = list.map(v=>`
     <div class="vrow">
-      <div class="vmain" style="min-width:0">
+      <div class="vmain">
         <div class="vtitle" title="${esc(v.title)}">${esc(v.title)}</div>
-        <div class="vmeta"><span class="tag"><span class="av" style="background:${colorFor(v.creator)}">${esc(initials(v.creator))}</span>${esc(v.creator)}</span>${v.notes?`<span>· ${esc(v.notes)}</span>`:""}</div>
+        <div class="vmeta"><span class="tag"><span class="av" style="background:${colorFor(v.creator)}">${esc(initials(v.creator))}</span>${esc(v.creator)}</span>${v.auto?'<span class="badge" title="Found automatically on their YouTube channel">auto-added</span>':""}${v.notes?`<span>· ${esc(v.notes)}</span>`:""}</div>
       </div>
-      <div class="plat"><div class="plat-ic yt">${ytIcon}</div><div><div class="plat-v">${w.yt.n||w.yt.auto?fmt(w.yt.n):"—"}${w.yt.auto?(w.yt.src==="ryd"?'<span class="auto" style="color:var(--warn)" title="YouTube blocked the live check; this count can be a few hours behind">● DELAYED</span>':'<span class="auto">● LIVE</span>'):""}</div>${statusSel(v,"ytStatus")}</div></div>
-      <div class="plat"><div class="plat-ic tt">${ttIcon}</div><div><div class="plat-v">${w.tt.n||w.tt.auto?fmt(w.tt.n):"—"}${w.tt.auto?'<span class="auto">● LIVE</span>':""}</div>${statusSel(v,"ttStatus")}</div></div>
-      <div class="vact">
-        ${yt?`<a href="${esc(yt)}" target="_blank" rel="noopener" title="Open on YouTube" style="color:var(--yt)">${ytIcon}</a>`:""}
-        ${tt?`<a href="${esc(tt)}" target="_blank" rel="noopener" title="Open on TikTok">${ttIcon}</a>`:""}
-        <button data-edit="${esc(v.id)}" title="Edit">✎</button>
-      </div>
-    </div>`; }).join("");
+      <div class="plats">${platformsFor(v).map(p=>platCell(v,p)).join("")}</div>
+      <div class="vact"><button data-edit="${esc(v.id)}" title="Edit">✎</button></div>
+    </div>`).join("");
 }
 function render(){ renderSelects(); renderDashboard(); renderVideos(); }
 
@@ -459,43 +488,88 @@ if (location.hash==="#videos") showTab("videos");
 ["q","filterCreator","filterStatus"].forEach(id=>$(id).addEventListener("input",renderVideos));
 document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>b.closest(".modal").classList.remove("open"));
 document.querySelectorAll(".modal").forEach(m=>m.addEventListener("mousedown",e=>{ if(e.target===m) m.classList.remove("open"); }));
-document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ document.querySelectorAll(".modal.open").forEach(m=>m.classList.remove("open")); } });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") document.querySelectorAll(".modal.open").forEach(m=>m.classList.remove("open")); });
 
+/* creators */
+let editingCreator=null;
+function renderCreatorForm(c){
+  const plats = c ? c.platforms : ["youtube","tiktok"];
+  $("cChecks").innerHTML = PLATFORMS.map(p=>`<label class="check"><input type="checkbox" value="${p}" ${plats.includes(p)?"checked":""}><span style="color:${P[p].color};display:flex">${ICONS[p]}</span>${P[p].name}</label>`).join("");
+  $("cAccounts").innerHTML = PLATFORMS.map(p=>`<div class="field"><label>${P[p].name} account link (optional)</label><input data-acc="${p}" value="${esc(c?.accounts?.[p]||"")}" placeholder="${P[p].acc}"></div>`).join("");
+}
+function openCreator(name){
+  if (!token) return openSettings();
+  const c = name ? creatorOf(name) : null; editingCreator = c ? c.name : null;
+  $("cmTitle").textContent = c ? `Edit ${c.name}` : "Add creator";
+  $("cName").value = c?.name || ""; renderCreatorForm(c); $("cDelete").classList.toggle("hidden",!c);
+  $("creatorModal").classList.add("open"); setTimeout(()=>$("cName").focus(),50);
+}
 $("creatorGrid").addEventListener("click", e=>{
-  if (e.target.closest("#addCreatorCard")){ if(!token) return openSettings(); $("cName").value=""; $("creatorModal").classList.add("open"); setTimeout(()=>$("cName").focus(),50); return; }
+  const ed=e.target.closest("[data-editc]"); if (ed){ e.stopPropagation(); return openCreator(ed.dataset.editc); }
+  if (e.target.closest("#addCreatorCard")) return openCreator(null);
   const c=e.target.closest(".cc[data-creator]"); if (c){ $("filterCreator").value=c.dataset.creator; showTab("videos"); renderVideos(); }
 });
-$("creatorForm").onsubmit = e => { e.preventDefault(); const n=$("cName").value.trim(); if(!n) return;
-  change(d=>{ if(!d.creators.some(c=>c.toLowerCase()===n.toLowerCase())) d.creators.push(n); }); $("creatorModal").classList.remove("open"); toast(`Added ${n}`); };
+$("creatorForm").onsubmit = e => { e.preventDefault();
+  const name=$("cName").value.trim(); if(!name) return;
+  const platforms=[...$("cChecks").querySelectorAll("input:checked")].map(i=>i.value);
+  const accounts={}; $("cAccounts").querySelectorAll("[data-acc]").forEach(i=>{ const u=normUrl(i.value); if(u) accounts[i.dataset.acc]=u; });
+  const old=editingCreator;
+  change(d=>{
+    if (old){ const c=d.creators.find(x=>x.name===old); if(c){ c.name=name; c.platforms=platforms; c.accounts=accounts; }
+              if (old!==name) d.videos.forEach(v=>{ if(v.creator===old) v.creator=name; }); }
+    else if (!d.creators.some(x=>x.name.toLowerCase()===name.toLowerCase())) d.creators.push({name, platforms, accounts});
+  });
+  $("creatorModal").classList.remove("open"); toast(old?"Saved":`Added ${name}`);
+};
+$("cDelete").onclick=()=>{ const n=editingCreator; $("creatorModal").classList.remove("open");
+  confirmBox(`Remove ${n}? Their videos stay in the list.`, ()=>change(d=>{ d.creators=d.creators.filter(c=>c.name!==n); })); };
 
-$("videoList").addEventListener("change", e=>{ const t=e.target; if(!t.matches("select.status")) return;
-  const id=t.dataset.id, f=t.dataset.f, val=t.value; t.dataset.v=val; change(d=>{ const v=d.videos.find(x=>x.id===id); if(v) v[f]=val; }); });
+/* videos: inline edits */
+$("videoList").addEventListener("change", e=>{ const t=e.target, id=t.dataset.id, p=t.dataset.p; if(!id||!p) return;
+  if (t.matches("select.status")){ const val=t.value; t.dataset.v=val; change(d=>{ const v=d.videos.find(x=>x.id===id); if(v){ v.status={...(v.status||{}),[p]:val}; } }); }
+  if (t.matches(".vin")){ const n=num(t.value); change(d=>{ const v=d.videos.find(x=>x.id===id); if(v){ v.views={...(v.views||{}),[p]:n}; } }); }
+});
+$("videoList").addEventListener("keydown", e=>{ if(e.key==="Enter" && e.target.matches(".vin")) e.target.blur(); });
+$("videoList").addEventListener("focusout", ()=>setTimeout(()=>{ if(renderVideos.pending){ renderVideos.pending=false; renderVideos(); } },0));
 $("videoList").addEventListener("click", e=>{ const b=e.target.closest("[data-edit]"); if(b) openVideo(b.dataset.edit); });
 
+/* video modal */
 let editingId=null;
-["vYs","vTs"].forEach(id=>$(id).innerHTML=STATUSES.map(s=>`<option>${s}</option>`).join(""));
+function renderVideoPlatforms(v, creatorName){
+  const c=creatorOf(creatorName); const plats = v ? [...new Set([...(c?.platforms.length?c.platforms:["youtube","tiktok"]), ...platformsFor(v)])] : (c?.platforms.length?c.platforms:["youtube","tiktok"]);
+  $("vPlatforms").innerHTML = PLATFORMS.filter(p=>plats.includes(p)).map(p=>`
+    <div class="pblock" data-p="${p}">
+      <h4><span style="color:${P[p].color};display:flex">${ICONS[p]}</span>${P[p].name}</h4>
+      <div class="pgrid">
+        <input class="purl" data-f="link" value="${esc(v?.links?.[p]||"")}" placeholder="${P[p].ph}">
+        <select data-f="status">${STATUSES.map(s=>`<option ${s===(v?.status?.[p]||"Not Posted")?"selected":""}>${s}</option>`).join("")}</select>
+        <input data-f="views" inputmode="numeric" value="${num(v?.views?.[p])||""}" placeholder="${P[p].auto?"auto":"views"}">
+      </div>
+      ${P[p].auto?`<div class="pnote">Views update automatically once there's a link.</div>`:`<div class="pnote">${P[p].name} doesn't share views publicly — type them in.</div>`}
+    </div>`).join("");
+  $("vPlatforms").querySelectorAll('[data-f="link"]').forEach(inp=>inp.addEventListener("change",()=>{ const s=inp.closest(".pblock").querySelector('[data-f="status"]'); if(inp.value.trim() && s.value==="Not Posted") s.value="Posted"; }));
+}
 function openVideo(id){
   if (!token) return openSettings();
   editingId=id||null; const v=id?data.videos.find(x=>x.id===id):null;
   $("vmTitle").textContent = v?"Edit video":"Add video";
-  $("vCreator").innerHTML=(data.creators||[]).map(n=>`<option>${esc(n)}</option>`).join("") || `<option value="">Add a creator first</option>`;
-  if (v && !data.creators.includes(v.creator)) $("vCreator").insertAdjacentHTML("beforeend",`<option>${esc(v.creator)}</option>`);
-  $("vCreator").value = v?v.creator:($("filterCreator").value||data.creators[0]||"");
-  $("vTitle").value=v?.title||""; $("vYt").value=v?.youtube||""; $("vTt").value=v?.tiktok||"";
-  $("vYs").value=v?.ytStatus||"Not Posted"; $("vTs").value=v?.ttStatus||"Not Posted";
-  $("vYv").value=v&&num(v.ytViews)?v.ytViews:""; $("vTv").value=v&&num(v.ttViews)?v.ttViews:""; $("vNotes").value=v?.notes||"";
+  $("vCreator").innerHTML=data.creators.map(c=>`<option>${esc(c.name)}</option>`).join("") || `<option value="">Add a creator first</option>`;
+  if (v && !creatorOf(v.creator)) $("vCreator").insertAdjacentHTML("beforeend",`<option>${esc(v.creator)}</option>`);
+  $("vCreator").value = v?v.creator:($("filterCreator").value||data.creators[0]?.name||"");
+  $("vTitle").value=v?.title||""; $("vNotes").value=v?.notes||"";
+  renderVideoPlatforms(v, $("vCreator").value);
   $("vDelete").classList.toggle("hidden",!v);
-  $("videoModal").classList.add("open"); setTimeout(()=>$(v?"vTitle":"vTitle").focus(),50);
+  $("videoModal").classList.add("open"); setTimeout(()=>$("vTitle").focus(),50);
 }
-$("vYt").addEventListener("change",()=>{ if($("vYt").value.trim() && $("vYs").value==="Not Posted") $("vYs").value="Posted"; });
-$("vTt").addEventListener("change",()=>{ if($("vTt").value.trim() && $("vTs").value==="Not Posted") $("vTs").value="Posted"; });
+$("vCreator").addEventListener("change",()=>{ const v=editingId?data.videos.find(x=>x.id===editingId):null; renderVideoPlatforms(v,$("vCreator").value); });
 $("addVideoTop").onclick=()=>openVideo(null);
 $("videoForm").onsubmit = e => { e.preventDefault();
-  const fields={creator:$("vCreator").value, title:$("vTitle").value.trim(), youtube:normUrl($("vYt").value), tiktok:normUrl($("vTt").value),
-    ytStatus:$("vYs").value, ttStatus:$("vTs").value, ytViews:num($("vYv").value), ttViews:num($("vTv").value), notes:$("vNotes").value.trim()};
-  if (!fields.creator||!fields.title) return;
+  const creator=$("vCreator").value, title=$("vTitle").value.trim(); if(!creator||!title) return;
+  const links={}, status={}, views={};
+  $("vPlatforms").querySelectorAll(".pblock").forEach(b=>{ const p=b.dataset.p; links[p]=normUrl(b.querySelector('[data-f="link"]').value); status[p]=b.querySelector('[data-f="status"]').value; views[p]=num(b.querySelector('[data-f="views"]').value); });
+  const fields={creator,title,links,status,views,notes:$("vNotes").value.trim()};
   if (editingId){ const id=editingId; change(d=>{ const v=d.videos.find(x=>x.id===id); if(v) Object.assign(v,fields); }); toast("Saved"); }
-  else { const v={id:uid(), ...fields, addedAt:new Date().toISOString()}; change(d=>{ if(!d.videos.some(x=>x.id===v.id)) d.videos.push({...v}); }); toast("Video added"); }
+  else { const v={id:uid(), ...fields, addedAt:new Date().toISOString()}; change(d=>{ if(!d.videos.some(x=>x.id===v.id)) d.videos.push(JSON.parse(JSON.stringify(v))); }); toast("Video added"); }
   $("videoModal").classList.remove("open");
 };
 let confirmCb=null;
@@ -536,65 +610,81 @@ function showBanner(text, btn){ $("bannerText").textContent=text; $("bannerBtn")
 function updateBanner(){ if(!token) showBanner("You're in view-only mode. Connect your GitHub once to add videos and use the AI.","Connect"); else $("banner").classList.remove("show"); }
 
 /* ================= AI assistant ================= */
-const chat = []; // provider-neutral: {role:"user"|"assistant", content, tool_calls?} / {role:"tool", id, content}
+const chat = [];
+const platProps = () => Object.fromEntries(PLATFORMS.flatMap(p=>[
+  [p, {type:"string", description:`${P[p].name} link`}],
+  [p+"Status", {type:"string", enum:STATUSES}],
+  [p+"Views", {type:"integer", description:`manual ${P[p].name} views (only for platforms without automatic counts, or if there's no link)`}],
+]));
 const TOOLS = [
-  {name:"add_creator", description:"Add a new creator to the tracker.", parameters:{type:"object",properties:{name:{type:"string"}},required:["name"]}},
-  {name:"remove_creator", description:"Remove a creator from the creator list (their videos stay).", parameters:{type:"object",properties:{name:{type:"string"}},required:["name"]}},
-  {name:"add_video", description:"Add a video. If a YouTube link is given and no status was said, ytStatus defaults to Posted; same for TikTok.", parameters:{type:"object",properties:{
-    creator:{type:"string"}, title:{type:"string"}, youtube:{type:"string",description:"YouTube Shorts URL"}, tiktok:{type:"string",description:"TikTok URL"},
-    ytStatus:{type:"string",enum:STATUSES}, ttStatus:{type:"string",enum:STATUSES}, ytViews:{type:"integer"}, ttViews:{type:"integer"}, notes:{type:"string"}},required:["creator","title"]}},
-  {name:"update_video", description:"Change fields on an existing video, by its id.", parameters:{type:"object",properties:{
-    id:{type:"string"}, creator:{type:"string"}, title:{type:"string"}, youtube:{type:"string"}, tiktok:{type:"string"},
-    ytStatus:{type:"string",enum:STATUSES}, ttStatus:{type:"string",enum:STATUSES}, ytViews:{type:"integer",description:"manual Shorts views, only used if there's no auto count"}, ttViews:{type:"integer",description:"manual TikTok views, only used if there's no auto count"}, notes:{type:"string"}},required:["id"]}},
+  {name:"add_creator", description:"Add a new creator. platforms = which of youtube, tiktok, instagram, pinterest they post on. accounts = their profile/channel links (adding a YouTube channel makes new uploads appear automatically).", parameters:{type:"object",properties:{name:{type:"string"}, platforms:{type:"array",items:{type:"string",enum:PLATFORMS}}, accounts:{type:"object",properties:Object.fromEntries(PLATFORMS.map(p=>[p,{type:"string"}]))}},required:["name"]}},
+  {name:"update_creator", description:"Change a creator's name, platforms, or account links.", parameters:{type:"object",properties:{name:{type:"string"}, newName:{type:"string"}, platforms:{type:"array",items:{type:"string",enum:PLATFORMS}}, accounts:{type:"object",properties:Object.fromEntries(PLATFORMS.map(p=>[p,{type:"string"}]))}},required:["name"]}},
+  {name:"remove_creator", description:"Remove a creator from the list (their videos stay).", parameters:{type:"object",properties:{name:{type:"string"}},required:["name"]}},
+  {name:"add_video", description:"Add a video. If a platform link is given and no status was said, that platform's status defaults to Posted.", parameters:{type:"object",properties:{creator:{type:"string"}, title:{type:"string"}, notes:{type:"string"}, ...platProps()},required:["creator","title"]}},
+  {name:"update_video", description:"Change fields on an existing video by id (e.g. add a TikTok link, set Instagram views, change a status).", parameters:{type:"object",properties:{id:{type:"string"}, creator:{type:"string"}, title:{type:"string"}, notes:{type:"string"}, ...platProps()},required:["id"]}},
   {name:"delete_video", description:"Delete a video by id. Only when the user clearly asks to delete.", parameters:{type:"object",properties:{id:{type:"string"}},required:["id"]}},
 ];
 function systemPrompt(){
-  const vids=(data.videos||[]).map(v=>{ const w=views(v); return {id:v.id, creator:v.creator, title:v.title, youtube:v.youtube||"", tiktok:v.tiktok||"", ytStatus:v.ytStatus, ttStatus:v.ttStatus, shortsViews:w.yt.n, shortsViewsAuto:w.yt.auto, tiktokViews:w.tt.n, tiktokViewsAuto:w.tt.auto, notes:v.notes||"", addedAt:v.addedAt}; });
-  return `You are the assistant inside a creator video tracker for a team that pays creators to make short videos and posts them to YouTube Shorts and TikTok.
+  const vids=data.videos.map(v=>({id:v.id, creator:v.creator, title:v.title, notes:v.notes||"", addedAt:v.addedAt,
+    platforms:Object.fromEntries(platformsFor(v).map(p=>{ const w=viewOf(v,p); return [p,{link:v.links?.[p]||"", status:v.status?.[p]||"Not Posted", views:w.n, viewsAreAutomatic:w.auto}]; }))}));
+  return `You are the assistant inside a creator video tracker. The team pays creators to make short videos and posts them on YouTube Shorts, TikTok, Instagram and Pinterest.
 Today is ${new Date().toDateString()}.
-You can change the tracker with tools. Statuses are exactly: "Not Posted", "Scheduled", "Posted".
+Change the tracker with tools. Statuses are exactly "Not Posted", "Scheduled", "Posted". Platforms: youtube, tiktok, instagram, pinterest.
 Rules:
-- Match creator names case-insensitively to existing creators and use the existing spelling. If a creator doesn't exist, call add_creator first.
-- If the user gives a link but no title, use a short sensible title like "<Creator> short <n>" — the user can rename later.
-- Views with a link update automatically; only set ytViews/ttViews when the user gives a number for a video with no auto count.
-- To change an existing video, find it by creator/title/link in the data and use its id. If it's ambiguous, ask.
-- You can also answer questions about performance using the data (views, who's top, what's not posted yet).
-- Keep replies short and friendly, 1–3 sentences. No markdown tables.
-Creators: ${JSON.stringify(data.creators||[])}
+- Match creator names case-insensitively and use the existing spelling. If a creator doesn't exist, call add_creator first.
+- Work out the platform from the link (youtube.com/youtu.be → youtube, tiktok.com → tiktok, instagram.com → instagram, pinterest/pin.it → pinterest).
+- If the same video is on several platforms, it's ONE video with several links — update the existing video instead of adding a duplicate when the title or context matches.
+- If no title is given, use a short sensible one like "<Creator> short <n>".
+- YouTube and TikTok views update automatically from links; only set youtubeViews/tiktokViews when there's no link. Instagram and Pinterest views must be set by number.
+- New uploads on a creator's YouTube channel are added automatically if their YouTube account link is set.
+- To change an existing video, use its id. If it's ambiguous, ask.
+- You can answer questions about performance from the data.
+- Keep replies short and friendly, 1–3 sentences. No tables.
+Creators: ${JSON.stringify(data.creators)}
 Videos: ${JSON.stringify(vids)}`;
+}
+function fieldsFromArgs(a, existing){
+  const f={};
+  if (a.creator!==undefined) f.creator = findCreator(a.creator)?.name || String(a.creator).trim();
+  if (a.title!==undefined) f.title = String(a.title);
+  if (a.notes!==undefined) f.notes = String(a.notes);
+  const links={...(existing?.links||{})}, status={...(existing?.status||{})}, views={...(existing?.views||{})};
+  for (const p of PLATFORMS){
+    if (a[p]!==undefined && a[p]!==null){ links[p]=normUrl(a[p]); if (links[p] && a[p+"Status"]===undefined && (status[p]||"Not Posted")==="Not Posted") status[p]="Posted"; }
+    if (a[p+"Status"]!==undefined && STATUSES.includes(a[p+"Status"])) status[p]=a[p+"Status"];
+    if (a[p+"Views"]!==undefined && a[p+"Views"]!==null) views[p]=num(a[p+"Views"]);
+  }
+  f.links=links; f.status=status; f.views=views; return f;
 }
 function runTool(name, a){
   a = a || {};
-  const findCreator = n => (data.creators||[]).find(c=>c.toLowerCase()===String(n||"").trim().toLowerCase());
-  const clean = o => { const f={}; for (const k of ["creator","title","youtube","tiktok","ytStatus","ttStatus","ytViews","ttViews","notes"]) if (o[k]!==undefined && o[k]!==null) f[k]=o[k];
-    if (f.youtube!==undefined) f.youtube=normUrl(f.youtube); if (f.tiktok!==undefined) f.tiktok=normUrl(f.tiktok);
-    for (const k of ["ytStatus","ttStatus"]) if (f[k]!==undefined && !STATUSES.includes(f[k])) delete f[k];
-    for (const k of ["ytViews","ttViews"]) if (f[k]!==undefined) f[k]=num(f[k]);
-    if (f.creator) f.creator = findCreator(f.creator) || String(f.creator).trim();
-    return f; };
-  if (name==="add_creator"){ const n=String(a.name||"").trim(); if(!n) return "error: no name"; if (findCreator(n)) return `${findCreator(n)} already exists`;
-    change(d=>{ if(!d.creators.some(c=>c.toLowerCase()===n.toLowerCase())) d.creators.push(n); }); actNote(`Added creator ${n}`); return `added creator ${n}`; }
-  if (name==="remove_creator"){ const n=findCreator(a.name); if(!n) return "error: no such creator"; change(d=>{ d.creators=d.creators.filter(c=>c!==n); }); actNote(`Removed creator ${n}`); return `removed ${n}`; }
-  if (name==="add_video"){ const f=clean(a); if(!f.creator||!f.title) return "error: need creator and title";
-    if (!findCreator(f.creator)) change(d=>{ if(!d.creators.some(c=>c.toLowerCase()===f.creator.toLowerCase())) d.creators.push(f.creator); });
-    const v={id:uid(), creator:f.creator, title:f.title, youtube:f.youtube||"", tiktok:f.tiktok||"",
-      ytStatus:f.ytStatus||(f.youtube?"Posted":"Not Posted"), ttStatus:f.ttStatus||(f.tiktok?"Posted":"Not Posted"),
-      ytViews:f.ytViews||0, ttViews:f.ttViews||0, notes:f.notes||"", addedAt:new Date().toISOString()};
-    change(d=>{ if(!d.videos.some(x=>x.id===v.id)) d.videos.push({...v}); }); actNote(`Added “${v.title}” for ${v.creator}`); return `added video id ${v.id}`; }
-  if (name==="update_video"){ const v=(data.videos||[]).find(x=>x.id===a.id); if(!v) return "error: no video with that id"; const f=clean(a);
-    change(d=>{ const x=d.videos.find(y=>y.id===a.id); if(x) Object.assign(x,f); }); actNote(`Updated “${f.title||v.title}”`); return "updated"; }
-  if (name==="delete_video"){ const v=(data.videos||[]).find(x=>x.id===a.id); if(!v) return "error: no video with that id";
+  const accFrom = o => { const r={}; for (const p of PLATFORMS) if (o?.[p]) r[p]=normUrl(o[p]); return r; };
+  if (name==="add_creator"){ const n=String(a.name||"").trim(); if(!n) return "error: no name"; if (findCreator(n)) return `${findCreator(n).name} already exists — use update_creator`;
+    const c={name:n, platforms:(a.platforms||["youtube","tiktok"]).filter(p=>PLATFORMS.includes(p)), accounts:accFrom(a.accounts)};
+    change(d=>{ if(!d.creators.some(x=>x.name.toLowerCase()===n.toLowerCase())) d.creators.push(JSON.parse(JSON.stringify(c))); }); actNote(`Added creator ${n}`); return `added creator ${n}`; }
+  if (name==="update_creator"){ const c=findCreator(a.name); if(!c) return "error: no such creator"; const old=c.name;
+    const nn=a.newName?String(a.newName).trim():old, plats=a.platforms?a.platforms.filter(p=>PLATFORMS.includes(p)):null, acc=a.accounts?accFrom(a.accounts):null;
+    change(d=>{ const x=d.creators.find(y=>y.name===old); if(!x) return; if(plats) x.platforms=plats; if(acc) x.accounts={...x.accounts,...acc}; if(nn!==old){ x.name=nn; d.videos.forEach(v=>{ if(v.creator===old) v.creator=nn; }); } });
+    actNote(`Updated ${nn}`); return "updated"; }
+  if (name==="remove_creator"){ const c=findCreator(a.name); if(!c) return "error: no such creator"; change(d=>{ d.creators=d.creators.filter(x=>x.name!==c.name); }); actNote(`Removed ${c.name}`); return "removed"; }
+  if (name==="add_video"){ const f=fieldsFromArgs(a,null); if(!f.creator||!f.title) return "error: need creator and title";
+    if (!findCreator(f.creator)){ const nc={name:f.creator, platforms:["youtube","tiktok"], accounts:{}}; change(d=>{ if(!d.creators.some(x=>x.name.toLowerCase()===nc.name.toLowerCase())) d.creators.push(nc); }); }
+    const c=findCreator(f.creator); for (const p of (c?.platforms||[])) { f.status[p]=f.status[p]||"Not Posted"; f.links[p]=f.links[p]||""; }
+    const v={id:uid(), notes:"", ...f, addedAt:new Date().toISOString()};
+    change(d=>{ if(!d.videos.some(x=>x.id===v.id)) d.videos.push(JSON.parse(JSON.stringify(v))); }); actNote(`Added “${v.title}” for ${v.creator}`); return `added video id ${v.id}`; }
+  if (name==="update_video"){ const v=data.videos.find(x=>x.id===a.id); if(!v) return "error: no video with that id"; const f=fieldsFromArgs(a,v);
+    change(d=>{ const x=d.videos.find(y=>y.id===a.id); if(x) Object.assign(x,JSON.parse(JSON.stringify(f))); }); actNote(`Updated “${f.title||v.title}”`); return "updated"; }
+  if (name==="delete_video"){ const v=data.videos.find(x=>x.id===a.id); if(!v) return "error: no video with that id";
     change(d=>{ d.videos=d.videos.filter(x=>x.id!==a.id); }); actNote(`Deleted “${v.title}”`); return "deleted"; }
   return "error: unknown tool";
 }
-
 async function callGitHubModels(){
   const messages=[{role:"system",content:systemPrompt()}, ...chat.map(m=> m.role==="tool" ? {role:"tool",tool_call_id:m.id,content:m.content}
     : m.tool_calls ? {role:"assistant",content:m.content||"",tool_calls:m.tool_calls.map(t=>({id:t.id,type:"function",function:{name:t.name,arguments:JSON.stringify(t.args)}}))}
     : {role:m.role,content:m.content})];
   const r = await fetch("https://models.github.ai/inference/chat/completions",{method:"POST",headers:{Authorization:`Bearer ${token}`,"Content-Type":"application/json",Accept:"application/json"},
     body:JSON.stringify({model:"openai/gpt-4.1-mini",messages,tools:TOOLS.map(t=>({type:"function",function:t})),temperature:0.2})});
-  if (!r.ok){ const t=await r.text().catch(()=> ""); throw new Error(r.status===401||r.status===403?"GitHub Models said no — make sure your token has Models: Read-only permission (Settings ⚙).":`AI error ${r.status}. ${t.slice(0,140)}`); }
+  if (!r.ok){ const t=await r.text().catch(()=> ""); throw new Error(r.status===401||r.status===403?"GitHub Models said no — make sure your token has Models: Read-only permission (Settings ⚙).":r.status===429?"The free AI limit was hit for now — try again in a bit.":`AI error ${r.status}. ${t.slice(0,140)}`); }
   const j=await r.json(), m=j.choices?.[0]?.message||{};
   return {text:m.content||"", calls:(m.tool_calls||[]).map(t=>{ let args={}; try{ args=JSON.parse(t.function.arguments||"{}"); }catch{} return {id:t.id,name:t.function.name,args}; })};
 }
@@ -621,8 +711,9 @@ async function ask(text){
   busy=true; $("sendBtn").disabled=true; $("sugg").classList.add("hidden");
   bubble("user",text); chat.push({role:"user",content:text});
   const typing=document.createElement("div"); typing.className="typing"; typing.textContent="Thinking…"; $("msgs").appendChild(typing);
+  const startLen = chat.length-1;
   try{
-    for (let step=0; step<6; step++){
+    for (let step=0; step<8; step++){
       const res = aiProvider==="anthropic" ? await callAnthropic() : await callGitHubModels();
       if (res.calls.length){
         chat.push({role:"assistant",content:res.text,tool_calls:res.calls});
@@ -633,15 +724,14 @@ async function ask(text){
       chat.push({role:"assistant",content:res.text||"Done."}); bubble("ai",res.text||"Done."); break;
     }
   } catch(e){
-    chat.pop();
-    const msg = e instanceof TypeError ? (aiProvider==="github" ? "Couldn't reach GitHub Models from this browser. Open Settings ⚙ → AI settings and switch to Claude with an Anthropic API key." : "Couldn't reach the AI — check your connection.") : e.message;
-    bubble("err",msg);
+    chat.length = startLen;
+    bubble("err", e instanceof TypeError ? (aiProvider==="github" ? "Couldn't reach GitHub Models from this browser. Open Settings ⚙ → AI settings and switch to Claude with an Anthropic API key." : "Couldn't reach the AI — check your connection.") : e.message);
   } finally { typing.remove(); busy=false; $("sendBtn").disabled=false; $("prompt").focus(); }
 }
-const SUGG=["Orbit posted a new short: <link>","Mark Orbit's server video as posted on TikTok","Who has the most views?","What still needs posting?"];
+const SUGG=["Haider posted on Instagram: <link>","Add a TikTok link to the latest video: <link>","Who has the most views?","What still needs posting?"];
 function openDrawer(){
   $("drawer").classList.add("open");
-  if (!$("msgs").children.length){ bubble("ai","Hey! Tell me what changed and I'll update the tracker — e.g. “Yug posted a short: youtube.com/shorts/…” or “add a TikTok link to Orbit's server video”. You can also ask how creators are doing."); }
+  if (!$("msgs").children.length) bubble("ai","Hey! Tell me what changed and I'll update the tracker — e.g. “Haider posted on TikTok: tiktok.com/…”, “set Haider's Instagram reel to 2,400 views”, or ask who's doing best.");
   $("sugg").innerHTML=SUGG.map(s=>`<button>${esc(s)}</button>`).join("");
   setTimeout(()=>$("prompt").focus(),200);
 }
@@ -656,7 +746,7 @@ $("prompt").addEventListener("input",autoGrow);
 (async()=>{
   updateBanner();
   try { data = await loadData(); } catch { showBanner("Couldn't load tracker data.","Retry"); }
-  render(); await refreshStats(); setInterval(refreshStats, 60000);
+  render(); await refresh(); setInterval(refresh, 60000);
 })();
 </script>
 </body>
