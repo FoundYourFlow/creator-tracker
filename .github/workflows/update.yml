@@ -27,6 +27,7 @@ jobs:
       - name: Fetch views and publish stats.json to the data branch
         env:
           GH_TOKEN: ${{ github.token }}
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
           REPO: ${{ github.repository }}
         run: |
           stats="$RUNNER_TEMP/stats.json"

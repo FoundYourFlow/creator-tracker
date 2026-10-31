@@ -20,7 +20,20 @@ export function youtubeId(url) {
   return m ? m[1] : null;
 }
 
+const YT_KEY = process.env.YT_API_KEY || "";
+
+// Official YouTube Data API — accurate, matches the count on YouTube. Needs a YT_API_KEY repo secret.
+async function ytDataApi(id) {
+  const j = await (await fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${id}&key=${YT_KEY}`)).json();
+  const st = j.items?.[0]?.statistics;
+  if (!st?.viewCount) throw new Error(j.error?.message || "no stats");
+  return { views: num(st.viewCount), likes: num(st.likeCount), source: "api" };
+}
+
 async function youtube(id) {
+  if (YT_KEY) {
+    try { return await ytDataApi(id); } catch (e) { console.log(`YouTube API: ${e.message}`); }
+  }
   try {
     const res = await fetch(`https://www.youtube.com/watch?v=${id}&hl=en&gl=US`, {
       headers: { "User-Agent": UA, "Accept-Language": "en-US,en;q=0.9", Cookie: "CONSENT=YES+1; SOCS=CAI" },

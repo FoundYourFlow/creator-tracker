@@ -318,8 +318,8 @@ const gh = (path, opts={}) => fetch(path.startsWith("http")?path:API+path, {...o
 function views(v){
   const s = stats.videos?.[v.id] || {};
   return {
-    yt: s.yt && typeof s.yt.views==="number" ? {n:s.yt.views, auto:true} : {n:num(v.ytViews), auto:false},
-    tt: s.tt && typeof s.tt.views==="number" ? {n:s.tt.views, auto:true} : {n:num(v.ttViews), auto:false},
+    yt: s.yt && typeof s.yt.views==="number" ? {n:s.yt.views, auto:true, src:s.yt.source} : {n:num(v.ytViews), auto:false},
+    tt: s.tt && typeof s.tt.views==="number" ? {n:s.tt.views, auto:true, src:s.tt.source} : {n:num(v.ttViews), auto:false},
   };
 }
 
@@ -437,7 +437,7 @@ function renderVideos(){
         <div class="vtitle" title="${esc(v.title)}">${esc(v.title)}</div>
         <div class="vmeta"><span class="tag"><span class="av" style="background:${colorFor(v.creator)}">${esc(initials(v.creator))}</span>${esc(v.creator)}</span>${v.notes?`<span>· ${esc(v.notes)}</span>`:""}</div>
       </div>
-      <div class="plat"><div class="plat-ic yt">${ytIcon}</div><div><div class="plat-v">${w.yt.n||w.yt.auto?fmt(w.yt.n):"—"}${w.yt.auto?'<span class="auto">● LIVE</span>':""}</div>${statusSel(v,"ytStatus")}</div></div>
+      <div class="plat"><div class="plat-ic yt">${ytIcon}</div><div><div class="plat-v">${w.yt.n||w.yt.auto?fmt(w.yt.n):"—"}${w.yt.auto?(w.yt.src==="ryd"?'<span class="auto" style="color:var(--warn)" title="YouTube blocked the live check; this count can be a few hours behind">● DELAYED</span>':'<span class="auto">● LIVE</span>'):""}</div>${statusSel(v,"ytStatus")}</div></div>
       <div class="plat"><div class="plat-ic tt">${ttIcon}</div><div><div class="plat-v">${w.tt.n||w.tt.auto?fmt(w.tt.n):"—"}${w.tt.auto?'<span class="auto">● LIVE</span>':""}</div>${statusSel(v,"ttStatus")}</div></div>
       <div class="vact">
         ${yt?`<a href="${esc(yt)}" target="_blank" rel="noopener" title="Open on YouTube" style="color:var(--yt)">${ytIcon}</a>`:""}
