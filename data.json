@@ -143,6 +143,32 @@
         "youtube": 0,
         "tiktok": 0
       }
+    },
+    {
+      "id": "yt-lRuX9bq-kB8",
+      "creator": "Haider",
+      "title": "Why is EVERYONE getting ADDICTED to this server??",
+      "links": {
+        "youtube": "https://www.youtube.com/shorts/lRuX9bq-kB8",
+        "tiktok": "",
+        "instagram": "",
+        "pinterest": ""
+      },
+      "status": {
+        "youtube": "Posted",
+        "tiktok": "Not Posted",
+        "instagram": "Not Posted",
+        "pinterest": "Not Posted"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0,
+        "instagram": 0,
+        "pinterest": 0
+      },
+      "notes": "",
+      "addedAt": "2026-10-30T20:00:26+00:00",
+      "auto": true
     }
   ]
 }
