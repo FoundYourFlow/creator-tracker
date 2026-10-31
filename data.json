@@ -169,6 +169,32 @@
       "notes": "",
       "addedAt": "2026-10-30T20:00:26+00:00",
       "auto": true
+    },
+    {
+      "id": "yt-KL_i8Y07Vb8",
+      "creator": "Haider",
+      "title": "I spent 100 HOURS killing mobs... HERE is WHY",
+      "links": {
+        "youtube": "https://www.youtube.com/shorts/KL_i8Y07Vb8",
+        "tiktok": "",
+        "instagram": "",
+        "pinterest": ""
+      },
+      "status": {
+        "youtube": "Posted",
+        "tiktok": "Not Posted",
+        "instagram": "Not Posted",
+        "pinterest": "Not Posted"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0,
+        "instagram": 0,
+        "pinterest": 0
+      },
+      "notes": "",
+      "addedAt": "2026-10-31T20:00:36+00:00",
+      "auto": true
     }
   ]
 }
