@@ -341,18 +341,18 @@
       "creator": "Orbit",
       "title": "Orbit video 5",
       "links": {
-        "youtube": "",
+        "youtube": "https://youtube.com/shorts/G4pXS6Y7-_U",
         "tiktok": ""
       },
       "status": {
-        "youtube": "Not Posted",
+        "youtube": "Scheduled",
         "tiktok": "Not Posted"
       },
       "views": {
         "youtube": 0,
         "tiktok": 0
       },
-      "notes": "FV5.mp4 - how to join, autoclicking allowed",
+      "notes": "FV5.mp4 - how to join, autoclicking allowed. YT Nov 5 7PM",
       "addedAt": "2026-11-02T17:55:12.924Z"
     }
   ]
