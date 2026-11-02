@@ -246,18 +246,18 @@
       "creator": "Orbit",
       "title": "Orbit video 3",
       "links": {
-        "youtube": "",
+        "youtube": "https://youtube.com/shorts/DMrB14wC3wk",
         "tiktok": ""
       },
       "status": {
-        "youtube": "Not Posted",
+        "youtube": "Scheduled",
         "tiktok": "Not Posted"
       },
       "views": {
         "youtube": 0,
         "tiktok": 0
       },
-      "notes": "V3.mp4 - AFK room pays you to do nothing",
+      "notes": "V3.mp4 - AFK room pays you to do nothing. YT Nov 3 12PM",
       "addedAt": "2026-11-02T17:33:56.275Z"
     },
     {
