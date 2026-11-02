@@ -265,18 +265,18 @@
       "creator": "Orbit",
       "title": "Orbit video 4",
       "links": {
-        "youtube": "",
+        "youtube": "https://youtube.com/shorts/1pLOXW5i3uU",
         "tiktok": ""
       },
       "status": {
-        "youtube": "Not Posted",
+        "youtube": "Scheduled",
         "tiktok": "Not Posted"
       },
       "views": {
         "youtube": 0,
         "tiktok": 0
       },
-      "notes": "FV4.mp4 - fixes every reason players quit",
+      "notes": "FV4.mp4 - fixes every reason players quit. YT Nov 4 12PM",
       "addedAt": "2026-11-02T17:33:59.567Z"
     },
     {
