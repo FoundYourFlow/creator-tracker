@@ -322,18 +322,18 @@
       "creator": "Yug",
       "title": "Yug short 4",
       "links": {
-        "youtube": "",
+        "youtube": "https://youtube.com/shorts/rIXhxcu0Nh4",
         "tiktok": ""
       },
       "status": {
-        "youtube": "Not Posted",
+        "youtube": "Scheduled",
         "tiktok": "Not Posted"
       },
       "views": {
         "youtube": 0,
         "tiktok": 0
       },
-      "notes": "voidmines#4.mp4 - secrets around the map",
+      "notes": "voidmines#4.mp4 - secrets around the map. YT Nov 5 12PM",
       "addedAt": "2026-11-02T17:34:18.100Z"
     }
   ]
