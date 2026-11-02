@@ -221,6 +221,25 @@
       "notes": "",
       "addedAt": "2026-11-01T20:00:38+00:00",
       "auto": true
+    },
+    {
+      "id": "vmvzjd4jokg3",
+      "creator": "swurlyne",
+      "title": "swurlyne short 3",
+      "links": {
+        "youtube": "https://youtube.com/shorts/TosJf8fiOk0",
+        "tiktok": ""
+      },
+      "status": {
+        "youtube": "Scheduled",
+        "tiktok": "Not Posted"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0
+      },
+      "notes": "third.mp4 - millions autoclicking. YT Nov 2 7PM, TikTok Nov 5 12PM",
+      "addedAt": "2026-11-02T17:31:43.812Z"
     }
   ]
 }
