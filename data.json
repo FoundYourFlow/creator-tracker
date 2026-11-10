@@ -471,6 +471,32 @@
       },
       "notes": "Pv2.mp4 - rating every feature. YT + TikTok Nov 8 7PM",
       "addedAt": "2026-11-08T20:59:53.176Z"
+    },
+    {
+      "id": "yt-BxGc58L1VOo",
+      "creator": "Haider",
+      "title": "Best Minecraft servers of 2026!!",
+      "links": {
+        "youtube": "https://www.youtube.com/shorts/BxGc58L1VOo",
+        "tiktok": "",
+        "instagram": "",
+        "pinterest": ""
+      },
+      "status": {
+        "youtube": "Posted",
+        "tiktok": "Not Posted",
+        "instagram": "Not Posted",
+        "pinterest": "Not Posted"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0,
+        "instagram": 0,
+        "pinterest": 0
+      },
+      "notes": "",
+      "addedAt": "2026-11-09T20:00:37+00:00",
+      "auto": true
     }
   ]
 }
