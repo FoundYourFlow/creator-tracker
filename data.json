@@ -523,6 +523,25 @@
       "notes": "",
       "addedAt": "2026-11-11T20:00:04+00:00",
       "auto": true
+    },
+    {
+      "id": "vmwcvgf7wrp4",
+      "creator": "PixieSMP",
+      "title": "MY MOM TOLD ME TO GET A JOB…",
+      "links": {
+        "youtube": "https://youtube.com/shorts/9wpyR0Kl9cM",
+        "tiktok": "https://www.tiktok.com/@voidminescom/video/7707090731831151903"
+      },
+      "status": {
+        "youtube": "Posted",
+        "tiktok": "Posted"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0
+      },
+      "notes": "v4.mp4 - mom said get a job (jobs/auction). Live on both Nov 11 ~8:25PM",
+      "addedAt": "2026-11-12T01:31:13.292Z"
     }
   ]
 }
