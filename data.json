@@ -54,6 +54,14 @@
         "tiktok"
       ],
       "accounts": {}
+    },
+    {
+      "name": "MineRune",
+      "platforms": [
+        "youtube",
+        "tiktok"
+      ],
+      "accounts": {}
     }
   ],
   "videos": [
