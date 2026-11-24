@@ -830,6 +830,25 @@
       },
       "notes": "YT Nov 24 4:00 PM. TikTok pending",
       "addedAt": "2026-11-24T19:17:05.630Z"
+    },
+    {
+      "id": "vmwv2tfnoacq",
+      "creator": "MineRune",
+      "title": "These cows are printing money 🤑 (v8)",
+      "links": {
+        "youtube": "https://youtube.com/shorts/fVEH2zMo6ac",
+        "tiktok": ""
+      },
+      "status": {
+        "youtube": "Scheduled",
+        "tiktok": "Not Posted"
+      },
+      "views": {
+        "youtube": 0,
+        "tiktok": 0
+      },
+      "notes": "YT Nov 24 7:00 PM. TikTok pending",
+      "addedAt": "2026-11-24T19:17:08.868Z"
     }
   ]
 }
